@@ -20,11 +20,11 @@
                         @csrf
 
                         <div data-mdb-input-init class="form-outline mb-4">
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                            <label class="form-label" for="form2Example1">Email address</label>
+                            <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror"
+                                name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                            <label class="form-label" for="form2Example1">Phone Number</label>
 
-                            @error('email')
+                            @error('phone')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
