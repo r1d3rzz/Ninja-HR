@@ -18,6 +18,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.min.css" rel="stylesheet" />
     <!-- JQUERY -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Datatable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
 
     {{-- CUSTOM CSS --}}
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
@@ -45,9 +47,6 @@
 
         <!-- Content -->
         <div class="page-wrapper chiller-theme">
-            {{-- <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
-                <i class="fas fa-bars"></i>
-            </a> --}}
             <nav id="sidebar" class="sidebar-wrapper">
                 <div class="sidebar-content">
                     <div class="sidebar-brand">
@@ -72,25 +71,13 @@
                         </div>
                     </div>
                     <!-- sidebar-header  -->
-                    <div class="sidebar-search">
-                        <div>
-                            <div class="input-group">
-                                <input type="text" class="form-control search-menu" placeholder="Search...">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- sidebar-search  -->
+
                     <div class="sidebar-menu">
                         <ul>
                             <li class="header-menu">
-                                <span>General</span>
+                                <span>Menu</span>
                             </li>
-                            <li class="sidebar-dropdown">
+                            {{-- <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="fa fa-tachometer-alt"></i>
                                     <span>Dashboard</span>
@@ -111,142 +98,36 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
-                            <li class="sidebar-dropdown">
-                                <a href="#">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>E-commerce</span>
-                                    <span class="badge badge-pill badge-danger">3</span>
+                            </li> --}}
+                            <li>
+                                <a href="{{route('home')}}">
+                                    <i class="fa-solid fa-home"></i>
+                                    <span>Home</span>
                                 </a>
-                                <div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                            <a href="#">Products
+                            </li>
+                            <li>
+                                <a href="{{route('employee.index')}}">
+                                    <i class="fa-solid fa-users"></i>
+                                    <span>Employees</span>
+                                </a>
+                            </li>
 
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Orders</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Credit cart</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="sidebar-dropdown">
-                                <a href="#">
-                                    <i class="far fa-gem"></i>
-                                    <span>Components</span>
-                                </a>
-                                <div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                            <a href="#">General</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Panels</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Tables</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Icons</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Forms</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="sidebar-dropdown">
-                                <a href="#">
-                                    <i class="fa fa-chart-line"></i>
-                                    <span>Charts</span>
-                                </a>
-                                <div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                            <a href="#">Pie chart</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Line chart</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Bar chart</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Histogram</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="sidebar-dropdown">
-                                <a href="#">
-                                    <i class="fa fa-globe"></i>
-                                    <span>Maps</span>
-                                </a>
-                                <div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                            <a href="#">Google maps</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Open street map</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="header-menu">
-                                <span>Extra</span>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-book"></i>
-                                    <span>Documentation</span>
-                                    <span class="badge badge-pill badge-primary">Beta</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-calendar"></i>
-                                    <span>Calendar</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-folder"></i>
-                                    <span>Examples</span>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                     <!-- sidebar-menu  -->
                 </div>
                 <!-- sidebar-content  -->
-                <div class="sidebar-footer">
-                    <a href="#">
-                        <i class="fa fa-bell"></i>
-                        <span class="badge badge-pill badge-warning notification">3</span>
-                    </a>
-                    <a href="#">
-                        <i class="fa fa-envelope"></i>
-                        <span class="badge badge-pill badge-success notification">7</span>
-                    </a>
-                    <a href="#">
-                        <i class="fa fa-cog"></i>
-                        <span class="badge-sonar"></span>
-                    </a>
-                    <a href="#">
-                        <i class="fa fa-power-off"></i>
-                    </a>
-                </div>
+
             </nav>
             <!-- sidebar-wrapper  -->
 
-            <main class="page-content">
-                @yield('content')
-            </main>
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <main class="page-content">
+                        @yield('content')
+                    </main>
+                </div>
+            </div>
             <!-- page-content" -->
         </div>
 
@@ -292,6 +173,12 @@
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.umd.min.js">
     </script>
+
+    <!-- Datatable -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+    @yield('script')
 </body>
 
 </html>
