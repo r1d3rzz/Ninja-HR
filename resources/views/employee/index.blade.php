@@ -5,7 +5,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-10 mx-auto">
+            <div class="col mx-auto">
                 <div class="card p-0 mt-2">
                     <div class="card-body">
                         <div class="mb-4">
@@ -66,6 +66,27 @@
                         },
                     ]
                 });
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+
+
+                @if (session('created'))
+                    Toast.fire({
+                        icon: "success",
+                        title: "{{ session('created') }}"
+                    });
+                @endif
+                //24:12 012
             });
         </script>
     </x-slot>

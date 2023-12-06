@@ -21,4 +21,13 @@ jQuery(function ($) {
         $(".page-wrapper").addClass("toggled");
         $("#show-sidebar").addClass("d-none");
     });
+
+    document.addEventListener("click", (e) => {
+        if (document.getElementById("show-sidebar").contains(e.target)) {
+            $(".page-wrapper").addClass("toggled");
+        } else if (!document.getElementById("sidebar").contains(e.target)) {
+            $(".page-wrapper").removeClass("toggled");
+            $("#show-sidebar").removeClass("d-none");
+        }
+    });
 });

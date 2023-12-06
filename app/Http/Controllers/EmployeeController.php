@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEmployee;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -45,5 +46,25 @@ class EmployeeController extends Controller
         return view("employee.create", [
             "departments" => Department::orderBy("title")->get(),
         ]);
+    }
+
+    public function store(StoreEmployee $request)
+    {
+        $employee = new User();
+        $employee->employee_id = $request->employee_id;
+        $employee->name = $request->name;
+        $employee->phone = $request->phone;
+        $employee->email = $request->email;
+        $employee->nrc_number = $request->nrc_number;
+        $employee->gender = $request->gender;
+        $employee->birthday = $request->birthday;
+        $employee->address = $request->address;
+        $employee->department_id = $request->department_id;
+        $employee->date_of_join = $request->date_of_join;
+        $employee->is_present = $request->is_present;
+        $employee->password = $request->password;
+        $employee->save();
+
+        return redirect("/employee")->with("created", "Created Successful.");
     }
 }

@@ -8,7 +8,7 @@
             <div class="col-md-8 mx-auto contentBody">
                 <div class="card p-0 mt-2">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('employee.store') }}">
+                        <form method="POST" action="{{ route('employee.store') }}" id="create-form">
                             @csrf
 
                             <div class="row">
@@ -37,7 +37,7 @@
                                     <x-form.textarea name="address" />
 
                                     <div class="mb-4">
-                                        <select name="gender" id="gender" class="form-select">
+                                        <select name="department_id" id="department" class="form-select">
                                             <option disabled selected> - Select Department - </option>
                                             @foreach ($departments as $department)
                                                 <option value="{{ $department->id }}">{{ $department->title }}</option>
@@ -69,6 +69,8 @@
         </div>
     </div>
 
+    {!! JsValidator::formRequest('App\Http\Requests\StoreEmployee', '#create-form') !!}
+
     <x-slot name="script">
         <script>
             $('#birthday').daterangepicker({
@@ -79,7 +81,7 @@
                 "autoApply": true,
                 "drops": "auto",
                 "locale": {
-                    "format": "DD-MM-YYYY",
+                    "format": "YYYY-MM-DD",
                 }
             });
 
@@ -90,7 +92,7 @@
                 "autoApply": true,
                 "drops": "auto",
                 "locale": {
-                    "format": "DD-MM-YYYY",
+                    "format": "YYYY-MM-DD",
                 }
             });
         </script>
