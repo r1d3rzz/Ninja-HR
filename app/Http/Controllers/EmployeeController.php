@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -37,5 +38,12 @@ class EmployeeController extends Controller
                 ->make(true);
         }
         return view('employee.index');
+    }
+
+    public function create()
+    {
+        return view("employee.create", [
+            "departments" => Department::orderBy("title")->get(),
+        ]);
     }
 }

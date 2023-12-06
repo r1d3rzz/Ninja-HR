@@ -14,9 +14,11 @@ jQuery(function ($) {
     $("#close-sidebar").click(function (e) {
         e.preventDefault();
         $(".page-wrapper").removeClass("toggled");
+        $("#show-sidebar").removeClass("d-none");
     });
     $("#show-sidebar").click(function (e) {
         e.preventDefault();
         $(".page-wrapper").addClass("toggled");
+        $("#show-sidebar").addClass("d-none");
     });
 });

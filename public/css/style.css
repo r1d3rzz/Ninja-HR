@@ -1,14 +1,20 @@
-.bottom-menu {
+.bottom-bar {
     position: absolute;
     bottom: 0;
     width: 100%;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
-.bottom-menu a {
+.bottom-bar a {
     color: #000;
     font-size: 15px;
     padding: 10px 15px;
+}
+
+/* Create Employee Input Content Form  */
+.contentBody {
+    height: 74vh;
+    overflow: scroll;
 }
 
 /* Slide Menu  */
@@ -75,9 +81,9 @@ body {
 
 /*----------------page-wrapper----------------*/
 
-.page-wrapper {
+/* .page-wrapper {
     height: 100vh;
-}
+} */
 
 .page-wrapper .theme {
     width: 40px;
