@@ -14,7 +14,7 @@
                                 <span>Create</span>
                             </a>
                         </div>
-                        <table class="table table-bordered" id="employees">
+                        <table class="table table-bordered display nowrap" id="employees" width="100%">
                             <thead>
                                 <tr class="text-center">
                                     <th>Employee ID</th>
@@ -23,6 +23,7 @@
                                     <th>Phone</th>
                                     <th>Department</th>
                                     <th>Is Present?</th>
+                                    <th class="hidden">Updated At</th>
                                 </tr>
                             </thead>
                         </table>
@@ -37,9 +38,11 @@
             $(function() {
                 var table = $('#employees').DataTable({
                     processing: true,
+                    responsive: true,
                     serverSide: true,
                     ajax: "{{ route('employees.dbtable') }}",
-                    columns: [{
+                    columns: [
+                        {
                             data: 'employee_id',
                             name: 'employee_id'
                         },
@@ -62,8 +65,20 @@
                         {
                             data: 'is_present',
                             name: 'is_present',
-                            class: "text-center"
                         },
+                        {
+                            data: 'updated_at',
+                            name: 'updated_at',
+                        },
+                    ],
+                    order: [
+                        [6, 'desc']
+                    ],
+                    columnDefs: [
+                        {
+                            target: "hidden",
+                            visible: false,
+                        }
                     ]
                 });
 
