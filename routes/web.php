@@ -21,7 +21,7 @@ Auth::routes(["register" => false]);
 Route::middleware('auth')->group(function () {
     Route::get("/", [PageController::class, 'home'])->name('home');
 
-    Route::resource('employee', EmployeeController::class);
+    Route::resource('employees', EmployeeController::class);
 
     Route::get("/employee/database/ssd", [EmployeeController::class, "ssd"])->name("employees.dbtable");
 });

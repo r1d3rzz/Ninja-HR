@@ -58,7 +58,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('employee.index')}}">
+                    <a href="{{route('employees.index')}}">
                         <i class="fa-solid fa-users"></i>
                         <span>Employees</span>
                     </a>

@@ -9,7 +9,7 @@
                 <div class="card p-0 mt-2">
                     <div class="card-body">
                         <div class="mb-4">
-                            <a href="{{ route('employee.create') }}" class="btn btn-sm btn-primary">
+                            <a href="{{ route('employees.create') }}" class="btn btn-sm btn-primary">
                                 <i class="fa-solid fa-plus-circle me-1"></i>
                                 <span>Create</span>
                             </a>
@@ -23,6 +23,7 @@
                                     <th>Phone</th>
                                     <th>Department</th>
                                     <th>Is Present?</th>
+                                    <th>Actions</th>
                                     <th class="hidden">Updated At</th>
                                 </tr>
                             </thead>
@@ -67,12 +68,16 @@
                             name: 'is_present',
                         },
                         {
+                            data: 'actions',
+                            name: 'actions',
+                        },
+                        {
                             data: 'updated_at',
                             name: 'updated_at',
                         },
                     ],
                     order: [
-                        [6, 'desc']
+                        [7, 'desc']
                     ],
                     columnDefs: [
                         {
@@ -105,6 +110,13 @@
                     Toast.fire({
                         icon: "success",
                         title: "{{ session('created') }}"
+                    });
+                @endif
+
+                @if (session('updated'))
+                    Toast.fire({
+                        icon: "success",
+                        title: "{{ session('updated') }}"
                     });
                 @endif
                 //24:12 012

@@ -1,11 +1,10 @@
-@props(['name', 'type' => 'text'])
+@props(['name', 'type' => 'text','value' => '','hidden'=>false])
 
-<x-input-outline-wrapper>
-    <input id="{{ $name }}" type="{{ $type }}"
-        class="form-control @error('{{ $name }}') is-invalid @enderror" name="{{ $name }}"
-        value="{{ old($name) }}" required autocomplete="{{ $name }}" required>
+<x-input-outline-wrapper :hidden="$hidden">
+    <x-label :name="$name" :hidden="$hidden" />
 
-    <x-label :name="$name" />
+    <input id="{{ $name }}" {{$hidden ? "hidden" : "" }} type="{{ $type }}" class="form-control" name="{{ $name }}"
+        value="{{ old($name,$value) }}" required>
 
     <x-error :name="$name" />
 </x-input-outline-wrapper>
