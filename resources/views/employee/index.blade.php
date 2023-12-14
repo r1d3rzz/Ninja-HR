@@ -79,7 +79,13 @@
                             target: "hidden",
                             visible: false,
                         }
-                    ]
+                    ],
+                    language:{
+                        paginate: {
+                            previous: "<i class='fa-solid fa-angles-left'></i>",
+                            next: "<i class='fa-solid fa-angles-right'></i>"
+                        },
+                    }
                 });
 
                 const Toast = Swal.mixin({
