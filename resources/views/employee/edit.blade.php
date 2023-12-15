@@ -8,7 +8,8 @@
             <div class="col-md-8 mx-auto contentBody">
                 <div class="card p-0 mt-2">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('employees.update',$employee->id) }}" id="edit-form">
+                        <form method="POST" action="{{ route('employees.update',$employee->id) }}" id="edit-form"
+                            enctype="multipart/form-data">
                             @csrf
                             @method("PUT")
 
@@ -39,6 +40,15 @@
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <x-form.input name="birthday" value="{{$employee->birthday}}" />
+
+                                    <x-form.input name="profile" type="file" />
+
+                                    <div id="preview" class="mb-4">
+                                        @if ($employee->profile)
+                                        <img src="{{asset('storage/'.$employee->profile)}}" class="img-thumbnail"
+                                            alt="{{$employee->name}}">
+                                        @endif
+                                    </div>
 
                                     <x-form.textarea name="address" value="{{$employee->address}}" />
 
@@ -102,6 +112,14 @@
                 "drops": "auto",
                 "locale": {
                     "format": "YYYY-MM-DD",
+                }
+            });
+
+            $("#profile").on('change',function(e){
+                let img_length = document.getElementById('profile').files.length;
+                $("#preview").html('');
+                for(let i = 0; i < img_length; i++){
+                    $("#preview").append(`<img src="${URL.createObjectURL(e.target.files[i])}" class="img-thumbnail" alt="preview"/>`);
                 }
             });
         </script>

@@ -1,7 +1,3 @@
-{{-- "id" => 6
-"date_of_join" => "2015-01-25"
-"is_present" => 1 --}}
-
 <x-layout>
     <x-slot name="title">
         Employee Info
@@ -14,8 +10,10 @@
                     <div class="row g-0">
                         <div class="col-md-4 gradient-custom text-center text-muted"
                             style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                            @if ($employee->profile)
+                            <img src="{{asset('storage/'.$employee->profile)}}" alt="{{$employee->name}}"
+                                class="img-fluid my-5 img-thumbnail m-1" />
+                            @endif
                             <h5>{{$employee->name}}</h5>
                             <p>{{$employee->department ? $employee->department->title : "-"}}</p>
                             <div class="d-flex justify-content-center mb-5">

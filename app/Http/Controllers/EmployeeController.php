@@ -8,6 +8,7 @@ use App\Models\Department;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeController extends Controller
@@ -81,6 +82,13 @@ class EmployeeController extends Controller
         $employee->date_of_join = $request->date_of_join;
         $employee->is_present = $request->is_present;
         $employee->password = $request->password;
+
+        if ($request->file("profile")) {
+            $employee->profile = $request->file('profile')->store('Employee_Profiles');
+        } else {
+            $employee->profile = null;
+        }
+
         $employee->save();
 
         return redirect("/employees")->with("created", "Created Successful.");
@@ -110,6 +118,12 @@ class EmployeeController extends Controller
         $employee->date_of_join = $request->date_of_join;
         $employee->is_present = $request->is_present;
         $employee->password = $request->password ? $request->password : $employee->password;
+        if ($request->file("profile")) {
+            Storage::disk('public')->delete($employee->profile);
+            $employee->profile = $request->file('profile')->store('Employee_Profiles');
+        } else {
+            $employee->profile;
+        }
         $employee->update();
 
         return redirect("/employees")->with("updated", "Updated Successful.");

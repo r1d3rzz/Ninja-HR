@@ -8,7 +8,8 @@
             <div class="col-md-8 mx-auto contentBody">
                 <div class="card p-0 mt-2">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('employees.store') }}" id="create-form">
+                        <form method="POST" action="{{ route('employees.store') }}" id="create-form"
+                            enctype="multipart/form-data">
                             @csrf
 
                             <div class="row">
@@ -35,6 +36,10 @@
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <x-form.input name="birthday" />
+
+                                    <x-form.input name="profile" type="file" />
+
+                                    <div id="preview" class="mb-4"></div>
 
                                     <x-form.textarea name="address" />
 
@@ -96,6 +101,14 @@
                 "drops": "auto",
                 "locale": {
                     "format": "YYYY-MM-DD",
+                }
+            });
+
+            $('#profile').on('change',function(e){
+                let file_length = document.getElementById('profile').files.length;
+                $('#preview').html('');
+                for(let i = 0; i < file_length; i++){
+                    $('#preview').append(`<img src="${URL.createObjectURL(e.target.files[i])}" class="img-thumbnail"/>`);
                 }
             });
         </script>
