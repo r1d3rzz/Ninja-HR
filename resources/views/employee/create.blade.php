@@ -47,7 +47,7 @@
                                         <select name="department_id" id="department" class="form-select">
                                             <option disabled selected> - Select Department - </option>
                                             @foreach ($departments as $department)
-                                            <option {{$department->id == old("department_id" ? "selected" : "")}}
+                                            <option {{old("department_id")==$department->id ? "selected" : ""}}
                                                 value="{{ $department->id }}">{{ $department->title }}</option>
                                             @endforeach
                                         </select>
@@ -58,8 +58,8 @@
                                     <div class="mb-4">
                                         <select name="is_present" id="is_present" class="form-select">
                                             <option disabled selected> - Is Present - </option>
-                                            <option value="1" {{old("is_present")==1 ? "selected" : "" }}>Yes</option>
-                                            <option value="0" {{old("is_present")==2 ? "selected" : "" }}>No</option>
+                                            <option value="1" {{old("is_present")=="1" ? "selected" : "" }}>Yes</option>
+                                            <option value="0" {{old("is_present")=="0" ? "selected" : "" }}>No</option>
                                         </select>
                                     </div>
 

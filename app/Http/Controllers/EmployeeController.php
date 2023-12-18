@@ -34,8 +34,9 @@ class EmployeeController extends Controller
                 ->addColumn('actions', function ($each) {
                     $editIcon = '<a href="' . route("employees.edit", $each->id) . '" class="btn btn-sm btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>';
                     $infoIcon = '<a href="' . route("employees.show", $each->id) . '" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-circle-info"></i></a>';
+                    $deleteIcon = '<a href="#" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-alt delete-btn" data-id="' . $each->id . '"></i></a>';
 
-                    return "<div class='btn-group'>$editIcon $infoIcon</div>";
+                    return "<div class='btn-group'>$editIcon $infoIcon $deleteIcon</div>";
                 })
                 ->editColumn('is_present', function ($each) {
                     if ($each->is_present) {
@@ -119,7 +120,9 @@ class EmployeeController extends Controller
         $employee->is_present = $request->is_present;
         $employee->password = $request->password ? $request->password : $employee->password;
         if ($request->file("profile")) {
-            Storage::disk('public')->delete($employee->profile);
+            if ($employee->profile) {
+                Storage::disk('public')->delete($employee->profile);
+            }
             $employee->profile = $request->file('profile')->store('Employee_Profiles');
         } else {
             $employee->profile;
@@ -127,5 +130,13 @@ class EmployeeController extends Controller
         $employee->update();
 
         return redirect("/employees")->with("updated", "Updated Successful.");
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return "success";
     }
 }

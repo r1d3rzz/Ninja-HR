@@ -1,4 +1,4 @@
-<div class="bottom-bar text-center shadow">
+<div class="bottom-bar text-center shadow bg-white">
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto d-flex justify-content-between">

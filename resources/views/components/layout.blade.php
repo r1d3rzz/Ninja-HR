@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
-<body>
+<body style="background: #b2dfdb">
     <div id="app">
 
         <!-- App bar -->
@@ -52,6 +52,21 @@
 
     </div>
 
+    <script>
+        $(function($){
+            let token = document.head.querySelector("meta[name='csrf-token']");
+            if(token){
+                $.ajaxSetup({
+                    headers:{
+                        'X-CSRF-TOKEN' : token.content
+                    }
+                })
+            }else{
+                console.error("csrf token not found");
+            }
+        })
+    </script>
+
 
 
     {{-- slidebar --}}
@@ -62,7 +77,8 @@
     </script>
 
     <!-- MDB -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.umd.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.umd.min.js">
+    </script>
 
     <!-- Datatable -->
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>

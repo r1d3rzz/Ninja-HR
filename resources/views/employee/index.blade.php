@@ -23,7 +23,7 @@
                                     <th>Phone</th>
                                     <th>Department</th>
                                     <th>Is Present?</th>
-                                    <th>Actions</th>
+                                    <th class="no-sort">Actions</th>
                                     <th class="hidden">Updated At</th>
                                 </tr>
                             </thead>
@@ -42,8 +42,7 @@
                     responsive: true,
                     serverSide: true,
                     ajax: "{{ route('employees.dbtable') }}",
-                    columns: [
-                        {
+                    columns: [{
                             data: 'employee_id',
                             name: 'employee_id'
                         },
@@ -79,13 +78,16 @@
                     order: [
                         [7, 'desc']
                     ],
-                    columnDefs: [
-                        {
+                    columnDefs: [{
                             target: "hidden",
                             visible: false,
+                        },
+                        {
+                            target: "no-sort",
+                            orderable: false,
                         }
                     ],
-                    language:{
+                    language: {
                         paginate: {
                             previous: "<i class='fa-solid fa-angles-left'></i>",
                             next: "<i class='fa-solid fa-angles-right'></i>"
@@ -105,7 +107,6 @@
                     }
                 });
 
-
                 @if (session('created'))
                     Toast.fire({
                         icon: "success",
@@ -119,7 +120,36 @@
                         title: "{{ session('updated') }}"
                     });
                 @endif
-                //24:12 012
+
+                $(document).on("click", ".delete-btn", function(e) {
+                    e.preventDefault();
+                    var id = $(this).data("id");
+
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!"
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                method:"DELETE",
+                                url: `/employees/${id}`,
+                            }).done(function(res){
+                                table.ajax.reload();
+                            });
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    });
+
+                });
             });
         </script>
     </x-slot>
