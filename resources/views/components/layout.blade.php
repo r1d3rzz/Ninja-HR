@@ -21,6 +21,8 @@
     <!-- Datatable -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/datatables.mark.js/2.0.0/datatables.mark.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.min.css">
     <!-- DateRangePicker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- Sweet Alert -->
@@ -64,6 +66,31 @@
             }else{
                 console.error("csrf token not found");
             }
+
+            $.extend(true, $.fn.dataTable.defaults, {
+                mark: true,
+                processing: true,
+                responsive: true,
+                serverSide: true,
+                order: [
+                        [7, 'desc']
+                    ],
+                columnDefs: [{
+                        target: "hidden",
+                        visible: false,
+                    },
+                    {
+                        target: "no-sort",
+                        orderable: false,
+                    }
+                ],
+                language: {
+                    paginate: {
+                        previous: "<i class='fa-solid fa-angles-left'></i>",
+                        next: "<i class='fa-solid fa-angles-right'></i>"
+                    },
+                }
+            });
         })
     </script>
 
@@ -84,6 +111,9 @@
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js),datatables.mark.js"></script>
+    <script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
 
     <!-- DateRangePicker -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

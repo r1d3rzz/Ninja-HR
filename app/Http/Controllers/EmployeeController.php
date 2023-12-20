@@ -38,6 +38,13 @@ class EmployeeController extends Controller
 
                     return "<div class='btn-group'>$editIcon $infoIcon $deleteIcon</div>";
                 })
+                ->editColumn('profile', function ($each) {
+                    if ($each->profile) {
+                        return "<img src='/storage/$each->profile' class='profile_img rounded-2'/><div class='mt=2 text-center'>$each->name</div>";
+                    } else {
+                        return "$each->name";
+                    }
+                })
                 ->editColumn('is_present', function ($each) {
                     if ($each->is_present) {
                         return "<span class='badge bg-primary'>Present</span>";
@@ -48,7 +55,7 @@ class EmployeeController extends Controller
                 ->editColumn('updated_at', function ($each) {
                     return Carbon::parse($each->updated_at)->format("Y-m-d H:i:s");
                 })
-                ->rawColumns(['action', 'is_present', 'actions'])
+                ->rawColumns(['action', 'is_present', 'actions', 'profile'])
                 ->make(true);
         }
         return view('employee.index');

@@ -514,3 +514,12 @@ body {
         margin-bottom: 10px;
     }
 }
+
+.dbtable-align th,
+td {
+    vertical-align: middle;
+}
+
+.profile_img {
+    width: 100px;
+}

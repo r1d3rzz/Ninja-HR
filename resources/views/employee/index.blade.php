@@ -14,9 +14,10 @@
                                 <span>Create</span>
                             </a>
                         </div>
-                        <table class="table table-bordered display nowrap" id="employees" width="100%">
+                        <table class="table dbtable-align table-bordered display nowrap" id="employees" width="100%">
                             <thead>
                                 <tr class="text-center">
+                                    <th class="no-sort"></th>
                                     <th>Employee ID</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -38,11 +39,12 @@
         <script type="text/javascript">
             $(function() {
                 var table = $('#employees').DataTable({
-                    processing: true,
-                    responsive: true,
-                    serverSide: true,
                     ajax: "{{ route('employees.dbtable') }}",
                     columns: [{
+                            data: 'profile',
+                            name: 'profile'
+                        },
+                        {
                             data: 'employee_id',
                             name: 'employee_id'
                         },
@@ -75,24 +77,6 @@
                             name: 'updated_at',
                         },
                     ],
-                    order: [
-                        [7, 'desc']
-                    ],
-                    columnDefs: [{
-                            target: "hidden",
-                            visible: false,
-                        },
-                        {
-                            target: "no-sort",
-                            orderable: false,
-                        }
-                    ],
-                    language: {
-                        paginate: {
-                            previous: "<i class='fa-solid fa-angles-left'></i>",
-                            next: "<i class='fa-solid fa-angles-right'></i>"
-                        },
-                    }
                 });
 
                 const Toast = Swal.mixin({
