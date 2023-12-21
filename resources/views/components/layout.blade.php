@@ -50,8 +50,6 @@
         <!-- Bottom bar -->
         <x-bottom-bar />
 
-
-
     </div>
 
     <script>

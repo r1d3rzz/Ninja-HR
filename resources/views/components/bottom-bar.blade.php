@@ -1,27 +1,17 @@
-<div class="bottom-bar text-center shadow bg-white">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 mx-auto d-flex justify-content-between">
-                <a href="#">
-                    <i class="fa-solid fa-home"></i>
-                    <p class="mb-0">Home</p>
-                </a>
+<footer>
+    <a href="{{route('home')}}" class="footer-link">
+        <i class="fa-solid fa-home"></i>
+    </a>
 
-                <a href="#">
-                    <i class="fa-solid fa-home"></i>
-                    <p class="mb-0">Home</p>
-                </a>
+    <a href="#" class="footer-link">
+        <i class="fa-solid fa-home"></i>
+    </a>
 
-                <a href="#">
-                    <i class="fa-solid fa-home"></i>
-                    <p class="mb-0">Home</p>
-                </a>
+    <a href="#" class="footer-link">
+        <i class="fa-solid fa-home"></i>
+    </a>
 
-                <a href="#">
-                    <i class="fa-solid fa-home"></i>
-                    <p class="mb-0">Home</p>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+    <a href="{{route('profile.profile')}}" class="footer-link">
+        <i class="fa-solid fa-user"></i>
+    </a>
+</footer>

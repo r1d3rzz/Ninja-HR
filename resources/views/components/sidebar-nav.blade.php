@@ -9,17 +9,19 @@
 
         <div class="sidebar-header">
             <div class="user-pic">
-                <img class="img-responsive img-rounded" src="https://i.pravatar.cc/300" alt="User picture">
+                <img class="img-responsive sidebar-profile_img" src="{{asset('storage/'.auth()->user()->profile)}}"
+                    alt="{{auth()->user()->name}}">
             </div>
             <div class="user-info">
-                <span class="user-name">Jhon
-                    <strong>Smith</strong>
+                <span class="user-name">
+                    <strong>{{auth()->user()->name}}</strong>
                 </span>
-                <span class="user-role">Administrator</span>
-                <span class="user-status">
+                <span class="user-role">{{auth()->user()->department->title}}</span>
+                <span class="user-role">{{auth()->user()->employee_id}}</span>
+                {{-- <span class="user-status">
                     <i class="fa fa-circle"></i>
                     <span>Online</span>
-                </span>
+                </span> --}}
             </div>
         </div>
         <!-- sidebar-header  -->

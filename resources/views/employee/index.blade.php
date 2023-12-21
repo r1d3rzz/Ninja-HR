@@ -3,7 +3,7 @@
         Employees
     </x-slot>
 
-    <div class="container">
+    <div class="container employeesTable-container p-2">
         <div class="row">
             <div class="col mx-auto">
                 <div class="card p-0 mt-2">
@@ -24,7 +24,7 @@
                                     <th>Phone</th>
                                     <th>Department</th>
                                     <th>Is Present?</th>
-                                    <th class="no-sort">Actions</th>
+                                    <th class="no-sort"></th>
                                     <th class="hidden">Updated At</th>
                                 </tr>
                             </thead>

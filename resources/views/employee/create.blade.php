@@ -3,7 +3,7 @@
         Create Employee
     </x-slot>
 
-    <div class="container">
+    <div class="container p-2">
         <div class="row">
             <div class="col-md-8 mx-auto contentBody">
                 <div class="card p-0 mt-2">
@@ -68,7 +68,7 @@
                             </div>
 
                             <div class="mt-3 text-center">
-                                <button type="submit" class="btn btn-primary w-50">Create Employee</button>
+                                <button type="submit" class="btn btn-primary w-lg-50">Create Employee</button>
                             </div>
                         </form>
                     </div>

@@ -1,20 +1,35 @@
-.bottom-bar {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+.app-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-.bottom-bar a {
-    color: #000;
-    font-size: 15px;
-    padding: 10px 15px;
+.sidebar-profile_img {
+    width: 60px !important;
+    height: 60px !important;
+    object-fit: contain;
+}
+
+footer {
+    background-color: #fafafa;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+footer a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.2rem;
+    margin: 0.8% 2%;
 }
 
 /* Create Employee Input Content Form  */
 .contentBody {
-    height: 74vh;
     overflow: scroll;
+    margin-bottom: 20px;
 }
 
 /* Slide Menu  */

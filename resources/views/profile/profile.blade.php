@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="title">
-        Employee Info
+        Profile
     </x-slot>
 
     <div class="container p-2 mb-3">
@@ -8,11 +8,11 @@
             <div class="col col-lg-8 mx-auto">
                 <div class="card mb-3" style="border-radius: .5rem;">
                     <div class="row g-0">
-                        <div class="col-md-4 gradient-custom text-center text-muted"
+                        <div class="col-md-4 p-1 gradient-custom text-center text-muted"
                             style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                             @if ($employee->profile)
                             <img src="{{asset('storage/'.$employee->profile)}}" alt="{{$employee->name}}"
-                                class="img-fluid my-5 img-thumbnail m-1" />
+                                class="img-fluid my-5 img-thumbnail m-0" />
                             @endif
                             <h5>{{$employee->name}}</h5>
                             <p>{{$employee->department ? $employee->department->title : "-"}}</p>
