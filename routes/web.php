@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
@@ -26,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::get("/employee/database/ssd", [EmployeeController::class, "ssd"])->name("employees.dbtable");
 
     Route::resource('departments', DepartmentController::class);
+
+    Route::resource('roles', RoleController::class);
 
     Route::get("/profile", [ProfileController::class, 'profile'])->name('profile.profile');
 });
