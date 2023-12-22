@@ -52,48 +52,6 @@
 
     </div>
 
-    <script>
-        $(function($){
-            let token = document.head.querySelector("meta[name='csrf-token']");
-            if(token){
-                $.ajaxSetup({
-                    headers:{
-                        'X-CSRF-TOKEN' : token.content
-                    }
-                })
-            }else{
-                console.error("csrf token not found");
-            }
-
-            $.extend(true, $.fn.dataTable.defaults, {
-                mark: true,
-                processing: true,
-                responsive: true,
-                serverSide: true,
-                order: [
-                        [7, 'desc']
-                    ],
-                columnDefs: [{
-                        target: "hidden",
-                        visible: false,
-                    },
-                    {
-                        target: "no-sort",
-                        orderable: false,
-                    }
-                ],
-                language: {
-                    paginate: {
-                        previous: "<i class='fa-solid fa-angles-left'></i>",
-                        next: "<i class='fa-solid fa-angles-right'></i>"
-                    },
-                }
-            });
-        })
-    </script>
-
-
-
     {{-- slidebar --}}
     <script src="{{ asset('js/slidebar.js') }}"></script>
 
@@ -120,7 +78,50 @@
     <!-- Laravel Javascript Validation -->
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 
+
+
+
+
+    <script>
+        $(function($){
+            let token = document.head.querySelector("meta[name='csrf-token']");
+            if(token){
+                $.ajaxSetup({
+                    headers:{
+                        'X-CSRF-TOKEN' : token.content
+                    }
+                })
+            }else{
+                console.error("csrf token not found");
+            }
+
+            $.extend(true, $.fn.dataTable.defaults, {
+                mark: true,
+                processing: true,
+                responsive: true,
+                serverSide: true,
+                columnDefs: [{
+                        target: "hidden",
+                        visible: false,
+                    },
+                    {
+                        target: "no-sort",
+                        orderable: false,
+                    }
+                ],
+                language: {
+                    paginate: {
+                        previous: "<i class='fa-solid fa-angles-left'></i>",
+                        next: "<i class='fa-solid fa-angles-right'></i>"
+                    },
+                }
+            });
+        })
+    </script>
+
     {{ $script ?? false }}
+
+
 </body>
 
 </html>

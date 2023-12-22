@@ -59,10 +59,18 @@
                         <span>Home</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="{{route('employees.index')}}">
                         <i class="fa-solid fa-users"></i>
                         <span>Employees</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('departments.index')}}">
+                        <i class="fa-solid fa-sitemap"></i>
+                        <span>Departments</span>
                     </a>
                 </li>
 

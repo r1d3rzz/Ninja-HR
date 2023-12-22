@@ -3,9 +3,9 @@
         Employees
     </x-slot>
 
-    <div class="container employeesTable-container p-2">
+    <div class="container-fluid employeesTable-container p-3">
         <div class="row">
-            <div class="col mx-auto">
+            <div class="col-12 mx-auto">
                 <div class="card p-0 mt-2">
                     <div class="card-body">
                         <div class="mb-4">
@@ -33,16 +33,15 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <x-slot name="script">
-        <script type="text/javascript">
-            $(function() {
+        <x-slot name="script">
+            <script type="text/javascript">
+                $(function() {
                 var table = $('#employees').DataTable({
                     ajax: "{{ route('employees.dbtable') }}",
                     columns: [{
                             data: 'profile',
-                            name: 'profile'
+                            name: 'profile',
                         },
                         {
                             data: 'employee_id',
@@ -135,6 +134,9 @@
 
                 });
             });
-        </script>
-    </x-slot>
+            </script>
+        </x-slot>
+
+    </div>
+
 </x-layout>

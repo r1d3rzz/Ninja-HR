@@ -1,4 +1,4 @@
-<footer>
+<footer class="px-5">
     <a href="{{route('home')}}" class="footer-link">
         <i class="fa-solid fa-home"></i>
     </a>

@@ -14,7 +14,7 @@
                             <img src="{{asset('storage/'.$employee->profile)}}" alt="{{$employee->name}}"
                                 class="img-fluid my-5 img-thumbnail m-1" />
                             @endif
-                            <h5>{{$employee->name}}</h5>
+                            <h5 class="mt-3">{{$employee->name}}</h5>
                             <p>{{$employee->department ? $employee->department->title : "-"}}</p>
                             <div class="d-flex justify-content-center mb-5">
                                 <a href="#"><i class="fa-brands fa-github fa-lg me-3"></i></a>
