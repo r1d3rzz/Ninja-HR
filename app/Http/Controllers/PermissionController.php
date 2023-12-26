@@ -13,7 +13,7 @@ class PermissionController extends Controller
     public function index()
     {
         if (\request()->ajax()) {
-            $data = Permission::latest()->get();
+            $data = Permission::all();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {

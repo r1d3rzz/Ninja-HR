@@ -3,7 +3,7 @@
         Permissions
     </x-slot>
 
-    <div class="container employeesTable-container p-2">
+    <div class="container employeesTable-container p-2" style="max-height: 500px">
         <div class="row">
             <div class="col mx-auto">
                 <div class="card p-0 mt-2">

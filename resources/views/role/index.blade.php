@@ -5,7 +5,7 @@
 
     <div class="container employeesTable-container p-2">
         <div class="row">
-            <div class="col mx-auto">
+            <div class="col-10 mx-auto">
                 <div class="card p-0 mt-2">
                     <div class="card-body">
                         <div class="mb-4">
@@ -18,6 +18,7 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>Title</th>
+                                    <th class="no-sort">Permissions</th>
                                     <th class="no-sort"></th>
                                     <th class="hidden">updated_at</th>
                                 </tr>
@@ -35,6 +36,7 @@
                         ajax: "{{ route('roles.index') }}",
                         columns: [
                             {data: 'name', name: 'name'},
+                            {data: 'permissions', name: 'permissions',class:'text-center d-flex justify-content-center flex-wrap'},
                             {data: 'actions', name: 'actions',class:'text-center'},
                             {data: 'updated_at', name: 'updated_at',class:'text-center'},
                         ],

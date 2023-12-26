@@ -27,6 +27,11 @@ footer a {
     margin: 0.8% 2%;
 }
 
+.dtr-data {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 /* Create Employee Input Content Form  */
 .contentBody {
     overflow: scroll;
