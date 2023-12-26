@@ -76,8 +76,15 @@
 
                 <li>
                     <a href="{{route('roles.index')}}">
-                        <i class="fa-solid fa-user-lock"></i>
+                        <i class="fa-solid fa-user-shield"></i>
                         <span>Roles</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('permissions.index')}}">
+                        <i class="fa-solid fa-shield"></i>
+                        <span>Permission</span>
                     </a>
                 </li>
 

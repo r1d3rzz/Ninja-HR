@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
@@ -29,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('departments', DepartmentController::class);
 
     Route::resource('roles', RoleController::class);
+
+    Route::resource('permissions', PermissionController::class);
 
     Route::get("/profile", [ProfileController::class, 'profile'])->name('profile.profile');
 });
