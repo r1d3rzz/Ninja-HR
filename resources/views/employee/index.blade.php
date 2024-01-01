@@ -20,6 +20,7 @@
                                     <th class="no-sort"></th>
                                     <th>Employee ID</th>
                                     <th>Name</th>
+                                    <th>Roles</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Department</th>
@@ -50,6 +51,10 @@
                         {
                             data: 'name',
                             name: 'name'
+                        },
+                        {
+                            data: 'roles',
+                            name: 'roles'
                         },
                         {
                             data: 'email',

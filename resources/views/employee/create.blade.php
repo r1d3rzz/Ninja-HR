@@ -33,6 +33,18 @@
                                             </option>
                                         </select>
                                     </div>
+
+                                    <div class="mb-4">
+                                        <x-label name="roles" /><br>
+                                        <select class="select-ninja form-select w-75" name="roles[]"
+                                            multiple="multiple">
+                                            @foreach ($roles as $role)
+                                            <option value="{{$role->name}}">{{$role->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <x-form.input name="birthday" />

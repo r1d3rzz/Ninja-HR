@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeController extends Controller
@@ -38,6 +39,13 @@ class EmployeeController extends Controller
 
                     return "<div class='btn-group'>$editIcon $infoIcon $deleteIcon</div>";
                 })
+                ->addColumn('roles', function ($each) {
+                    $lists = '';
+                    foreach ($each->roles as $role) {
+                        $lists .= "<span class='badge bg-primary m-1'>" . $role->name . "</span>";
+                    }
+                    return $lists;
+                })
                 ->editColumn('profile', function ($each) {
                     if ($each->profile) {
                         return "<img src='/storage/$each->profile' class='profile_img rounded-2'/><div class='mt=2 text-center'>$each->name</div>";
@@ -55,7 +63,7 @@ class EmployeeController extends Controller
                 ->editColumn('updated_at', function ($each) {
                     return Carbon::parse($each->updated_at)->format("Y-m-d H:i:s");
                 })
-                ->rawColumns(['action', 'is_present', 'actions', 'profile'])
+                ->rawColumns(['action', 'is_present', 'actions', 'profile', 'roles'])
                 ->make(true);
         }
         return view('employee.index');
@@ -72,6 +80,7 @@ class EmployeeController extends Controller
     {
         return view("employee.create", [
             "departments" => Department::orderBy("title")->get(),
+            'roles' => Role::all(),
         ]);
     }
 
@@ -99,6 +108,8 @@ class EmployeeController extends Controller
 
         $employee->save();
 
+        $employee->syncRoles($request->roles);
+
         return redirect("/employees")->with("created", "Created Successful.");
     }
 
@@ -108,6 +119,8 @@ class EmployeeController extends Controller
         return view("employee.edit", [
             "employee" => $employee,
             "departments" => Department::orderBy('title')->get(),
+            'roles' => Role::all(),
+            'old_roles' => $employee->roles()->pluck('id')->toArray(),
         ]);
     }
 
@@ -135,6 +148,8 @@ class EmployeeController extends Controller
             $employee->profile;
         }
         $employee->update();
+
+        $employee->syncRoles($request->roles);
 
         return redirect("/employees")->with("updated", "Updated Successful.");
     }
