@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRole;
 use App\Http\Requests\UpdateRole;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -15,6 +16,10 @@ class RoleController extends Controller
 {
     public function index()
     {
+        if (!User::find(auth()->id())->can('view_role')) {
+            return abort(401);
+        }
+
         if (\request()->ajax()) {
             $data = Role::latest()->get();
             return DataTables::of($data)
@@ -31,8 +36,16 @@ class RoleController extends Controller
                     return $output;
                 })
                 ->addColumn('actions', function ($row) {
-                    $editIcon = "<a href=" . route('roles.edit', $row->id) . " class='btn btn-sm btn-outline-warning'>" . "<i class='fa-solid fa-edit'></i>" . "</a>";
-                    $deleteIcon = "<a href='#' data-id='$row->id' class='btn btn-sm btn-danger delete-btn'>" . "<i class='fa-solid fa-trash-alt'></i>" . "</a>";
+                    $editIcon = '';
+                    $deleteIcon = '';
+
+                    if (User::find(auth()->id())->can('edit_role')) {
+                        $editIcon = "<a href=" . route('roles.edit', $row->id) . " class='btn btn-sm btn-outline-warning'>" . "<i class='fa-solid fa-edit'></i>" . "</a>";
+                    }
+
+                    if (User::find(auth()->id())->can('delete_role')) {
+                        $deleteIcon = "<a href='#' data-id='$row->id' class='btn btn-sm btn-danger delete-btn'>" . "<i class='fa-solid fa-trash-alt'></i>" . "</a>";
+                    }
 
                     return "<div class='btn-group'>$editIcon $deleteIcon</div>";
                 })
@@ -47,6 +60,10 @@ class RoleController extends Controller
 
     public function create()
     {
+        if (!User::find(auth()->id())->can('create_role')) {
+            return abort(401);
+        }
+
         return view('role.create', [
             "permissions" => Permission::all(),
         ]);
@@ -54,6 +71,10 @@ class RoleController extends Controller
 
     public function store(StoreRole $request)
     {
+        if (!User::find(auth()->id())->can('create_role')) {
+            return abort(401);
+        }
+
         $role = new Role;
         $role->name = $request->name;
         $role->save();
@@ -65,6 +86,10 @@ class RoleController extends Controller
 
     public function edit($id,)
     {
+        if (!User::find(auth()->id())->can('edit_role')) {
+            return abort(401);
+        }
+
         $role = Role::findOrFail($id);
 
         return view('role.edit', [
@@ -76,6 +101,10 @@ class RoleController extends Controller
 
     public function update($id, UpdateRole $request)
     {
+        if (!User::find(auth()->id())->can('edit_role')) {
+            return abort(401);
+        }
+
         $role = Role::findOrFail($id);
         $role->name = $request->name;
         $role->update();
@@ -89,6 +118,10 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
+        if (!User::find(auth()->id())->can('delete_role')) {
+            return abort(401);
+        }
+
         $role = Role::findOrFail($id);
         $role->delete();
 

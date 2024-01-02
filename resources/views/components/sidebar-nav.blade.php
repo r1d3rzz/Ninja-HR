@@ -60,33 +60,41 @@
                     </a>
                 </li>
 
+                @can('view_employee')
                 <li>
                     <a href="{{route('employees.index')}}">
                         <i class="fa-solid fa-users"></i>
                         <span>Employees</span>
                     </a>
                 </li>
+                @endcan
 
+                @can('view_department')
                 <li>
                     <a href="{{route('departments.index')}}">
                         <i class="fa-solid fa-sitemap"></i>
                         <span>Departments</span>
                     </a>
                 </li>
+                @endcan
 
+                @can('view_role')
                 <li>
                     <a href="{{route('roles.index')}}">
                         <i class="fa-solid fa-user-shield"></i>
                         <span>Roles</span>
                     </a>
                 </li>
+                @endcan
 
+                @can('view_permission')
                 <li>
                     <a href="{{route('permissions.index')}}">
                         <i class="fa-solid fa-shield"></i>
                         <span>Permission</span>
                     </a>
                 </li>
+                @endcan
 
             </ul>
         </div>

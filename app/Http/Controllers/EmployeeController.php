@@ -16,11 +16,19 @@ class EmployeeController extends Controller
 {
     public function index()
     {
+        if (!User::find(auth()->id())->can('view_employee')) {
+            return abort(401);
+        }
+
         return view("employee.index");
     }
 
     public function ssd()
     {
+        if (!User::find(auth()->id())->can('view_employee')) {
+            return abort(401);
+        }
+
         if (\request()->ajax()) {
             $data = User::with("department")->latest()->get();
             return DataTables::of($data)
@@ -33,9 +41,21 @@ class EmployeeController extends Controller
                     return $each->department ? $each->department->title : "-";
                 })
                 ->addColumn('actions', function ($each) {
-                    $editIcon = '<a href="' . route("employees.edit", $each->id) . '" class="btn btn-sm btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>';
-                    $infoIcon = '<a href="' . route("employees.show", $each->id) . '" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-circle-info"></i></a>';
-                    $deleteIcon = '<a href="#" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-alt delete-btn" data-id="' . $each->id . '"></i></a>';
+                    $editIcon = '';
+                    $infoIcon = '';
+                    $deleteIcon = '';
+
+                    if (User::find(auth()->id())->can('edit_employee')) {
+                        $editIcon = '<a href="' . route("employees.edit", $each->id) . '" class="btn btn-sm btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>';
+                    }
+
+                    if (User::find(auth()->id())->can('view_employee')) {
+                        $infoIcon = '<a href="' . route("employees.show", $each->id) . '" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-circle-info"></i></a>';
+                    }
+
+                    if (User::find(auth()->id())->can('delete_employee')) {
+                        $deleteIcon = '<a href="#" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-alt delete-btn" data-id="' . $each->id . '"></i></a>';
+                    }
 
                     return "<div class='btn-group'>$editIcon $infoIcon $deleteIcon</div>";
                 })
@@ -71,6 +91,10 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
+        if (!User::find(auth()->id())->can('view_employee')) {
+            return abort(401);
+        }
+
         return view("employee.show", [
             "employee" => User::findOrFail($id),
         ]);
@@ -78,6 +102,10 @@ class EmployeeController extends Controller
 
     public function create()
     {
+        if (!User::find(auth()->id())->can('create_employee')) {
+            return abort(401);
+        }
+
         return view("employee.create", [
             "departments" => Department::orderBy("title")->get(),
             'roles' => Role::all(),
@@ -86,6 +114,10 @@ class EmployeeController extends Controller
 
     public function store(StoreEmployee $request)
     {
+        if (!User::find(auth()->id())->can('create_employee')) {
+            return abort(401);
+        }
+
         $employee = new User();
         $employee->employee_id = $request->employee_id;
         $employee->name = $request->name;
@@ -115,6 +147,10 @@ class EmployeeController extends Controller
 
     public function edit($id)
     {
+        if (!User::find(auth()->id())->can('edit_employee')) {
+            return abort(401);
+        }
+
         $employee = User::findOrFail($id);
         return view("employee.edit", [
             "employee" => $employee,
@@ -126,6 +162,10 @@ class EmployeeController extends Controller
 
     public function update(UpdateEmployee $request)
     {
+        if (!User::find(auth()->id())->can('edit_employee')) {
+            return abort(401);
+        }
+
         $employee = User::findOrFail($request->id);
         $employee->employee_id = $request->employee_id;
         $employee->name = $request->name;
@@ -156,6 +196,10 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
+        if (!User::find(auth()->id())->can('delete_employee')) {
+            return abort(401);
+        }
+
         $user = User::findOrFail($id);
         $user->delete();
 

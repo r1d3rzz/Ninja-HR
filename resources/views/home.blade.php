@@ -58,11 +58,21 @@
             $(function () {
                 $('#logout-btn').click(function (e) {
                     e.preventDefault();
-                    $.ajax({
-                        type: "POST",
-                        url: "/logout",
-                        success: function (response) {
-                            window.location.reload();
+                    Swal.fire({
+                    title: "Are you sure?",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/logout",
+                                success: function (response) {
+                                    window.location.reload();
+                                }
+                            });
                         }
                     });
                 });

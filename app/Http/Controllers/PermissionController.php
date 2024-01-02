@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -12,6 +13,10 @@ class PermissionController extends Controller
 {
     public function index()
     {
+        if (!User::find(auth()->id())->can('view_permission')) {
+            return abort(401);
+        }
+
         if (\request()->ajax()) {
             $data = Permission::all();
             return DataTables::of($data)
@@ -21,8 +26,16 @@ class PermissionController extends Controller
                     return $actionBtn;
                 })
                 ->addColumn('actions', function ($row) {
-                    $editIcon = "<a href=" . route('permissions.edit', $row->id) . " class='btn btn-sm btn-outline-warning'>" . "<i class='fa-solid fa-edit'></i>" . "</a>";
-                    $deleteIcon = "<a href='#' data-id='$row->id' class='btn btn-sm btn-danger delete-btn'>" . "<i class='fa-solid fa-trash-alt'></i>" . "</a>";
+                    $editIcon = '';
+                    $deleteIcon = '';
+
+                    if (User::find(auth()->id())->can('edit_permission')) {
+                        $editIcon = "<a href=" . route('permissions.edit', $row->id) . " class='btn btn-sm btn-outline-warning'>" . "<i class='fa-solid fa-edit'></i>" . "</a>";
+                    }
+
+                    if (User::find(auth()->id())->can('delete_permission')) {
+                        $deleteIcon = "<a href='#' data-id='$row->id' class='btn btn-sm btn-danger delete-btn'>" . "<i class='fa-solid fa-trash-alt'></i>" . "</a>";
+                    }
 
                     return "<div class='btn-group'>$editIcon $deleteIcon</div>";
                 })
@@ -37,11 +50,17 @@ class PermissionController extends Controller
 
     public function create()
     {
+        if (!User::find(auth()->id())->can('create_permission')) {
+            return abort(401);
+        }
         return view('permission.create');
     }
 
     public function store()
     {
+        if (!User::find(auth()->id())->can('create_permission')) {
+            return abort(401);
+        }
         $formData = request()->validate([
             'name' => ['required', Rule::unique('permissions', 'name')]
         ]);
@@ -53,6 +72,9 @@ class PermissionController extends Controller
 
     public function edit($id)
     {
+        if (!User::find(auth()->id())->can('edit_permission')) {
+            return abort(401);
+        }
         $permission = Permission::findOrFail($id);
 
         return view('permission.edit', [
@@ -62,6 +84,9 @@ class PermissionController extends Controller
 
     public function update($id)
     {
+        if (!User::find(auth()->id())->can('edit_permission')) {
+            return abort(401);
+        }
         $permission = Permission::findOrFail($id);
 
         request()->validate([
@@ -76,6 +101,9 @@ class PermissionController extends Controller
 
     public function destroy($id)
     {
+        if (!User::find(auth()->id())->can('delete_permission')) {
+            return abort(401);
+        }
         $permission = Permission::findOrFail($id);
         $permission->delete();
 

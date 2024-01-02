@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -12,6 +13,10 @@ class DepartmentController extends Controller
 {
     public function index()
     {
+        if (!User::find(auth()->id())->can('view_department')) {
+            return abort(401);
+        }
+
         if (\request()->ajax()) {
             $data = Department::latest()->get();
             return DataTables::of($data)
@@ -21,8 +26,16 @@ class DepartmentController extends Controller
                     return $actionBtn;
                 })
                 ->addColumn('actions', function ($row) {
-                    $editIcon = "<a href=" . route('departments.edit', $row->id) . " class='btn btn-sm btn-outline-warning'>" . "<i class='fa-solid fa-edit'></i>" . "</a>";
-                    $deleteIcon = "<a href='#' data-id='$row->id' class='btn btn-sm btn-danger delete-btn'>" . "<i class='fa-solid fa-trash-alt'></i>" . "</a>";
+                    $editIcon = '';
+                    $deleteIcon = '';
+
+                    if (User::find(auth()->id())->can('edit_department')) {
+                        $editIcon = "<a href=" . route('departments.edit', $row->id) . " class='btn btn-sm btn-outline-warning'>" . "<i class='fa-solid fa-edit'></i>" . "</a>";
+                    }
+
+                    if (User::find(auth()->id())->can('delete_department')) {
+                        $deleteIcon = "<a href='#' data-id='$row->id' class='btn btn-sm btn-danger delete-btn'>" . "<i class='fa-solid fa-trash-alt'></i>" . "</a>";
+                    }
 
                     return "<div class='btn-group'>$editIcon $deleteIcon</div>";
                 })
@@ -37,11 +50,19 @@ class DepartmentController extends Controller
 
     public function create()
     {
+        if (!User::find(auth()->id())->can('create_department')) {
+            return abort(401);
+        }
+
         return view('department.create');
     }
 
     public function store()
     {
+        if (!User::find(auth()->id())->can('create_department')) {
+            return abort(401);
+        }
+
         $formData = request()->validate([
             'title' => ['required', 'min:5', Rule::unique('departments', 'title')]
         ]);
@@ -53,6 +74,10 @@ class DepartmentController extends Controller
 
     public function edit($id)
     {
+        if (!User::find(auth()->id())->can('edit_department')) {
+            return abort(401);
+        }
+
         $department = Department::findOrFail($id);
 
         return view('department.edit', [
@@ -62,6 +87,10 @@ class DepartmentController extends Controller
 
     public function update($id)
     {
+        if (!User::find(auth()->id())->can('edit_department')) {
+            return abort(401);
+        }
+
         $department = Department::findOrFail($id);
 
         request()->validate([
@@ -76,6 +105,10 @@ class DepartmentController extends Controller
 
     public function destroy($id)
     {
+        if (!User::find(auth()->id())->can('delete_department')) {
+            return abort(401);
+        }
+
         $department = Department::findOrFail($id);
         $department->delete();
 
