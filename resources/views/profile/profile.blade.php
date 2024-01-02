@@ -15,12 +15,18 @@
                                 class="img-fluid my-5 img-thumbnail m-0" />
                             @endif
                             <h5>{{$employee->name}}</h5>
+                            <div class="roles mb-2">
+                                @foreach ($employee->roles as $role)
+                                <span class="badge bg-primary m-1">{{$role->name}}</span>
+                                @endforeach
+                            </div>
                             <p>{{$employee->department ? $employee->department->title : "-"}}</p>
-                            <div class="d-flex justify-content-center mb-5">
+                            <div class="d-flex justify-content-center mb-3">
                                 <a href="#"><i class="fa-brands fa-github fa-lg me-3"></i></a>
                                 <a href="#"><i class="fa-brands fa-linkedin fa-lg me-3"></i></a>
                                 <a href="#"><i class="fa-regular fa-envelope fa-lg"></i></a>
                             </div>
+
                             <a href="/employees/{{$employee->id}}/edit" class="text-danger">
                                 <span><i class="fa-solid fa-edit"></i></span>
                                 Edit Employee

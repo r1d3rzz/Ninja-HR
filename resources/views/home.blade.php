@@ -14,7 +14,12 @@
                         </div>
                         <div class="col-12 mt-3 mt-lg-0 col-lg-8">
                             <div class="card card-body bg-info-subtle">
-                                <h1 class="h4">{{$employee->name}}</h1>
+                                <h1 class="h4 mb-0">{{$employee->name}}</h1>
+                                <div class="roles mb-2">
+                                    @foreach ($employee->roles as $role)
+                                    <span class="badge bg-primary m-1">{{$role->name}}</span>
+                                    @endforeach
+                                </div>
                                 <div>
                                     <span class="me-2">
                                         <i class="fa-solid fa-id-card-clip"></i>
@@ -39,7 +44,29 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card card-body p-3 mt-3">
+                    <a href="#" id="logout-btn" class="btn btn-danger"><i class="fa-solid fa-right-from-bracket"></i>
+                        Logout</a>
+                </div>
             </div>
         </div>
     </div>
+
+    <x-slot name="script">
+        <script>
+            $(function () {
+                $('#logout-btn').click(function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        url: "/logout",
+                        success: function (response) {
+                            window.location.reload();
+                        }
+                    });
+                });
+             });
+        </script>
+    </x-slot>
 </x-layout>
