@@ -36,6 +36,9 @@
 
     {{-- CUSTOM CSS --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    {{-- Internal Css --}}
+    {{$style??false}}
 </head>
 
 <body style="background: #b2dfdb">

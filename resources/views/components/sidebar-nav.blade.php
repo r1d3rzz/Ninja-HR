@@ -60,6 +60,15 @@
                     </a>
                 </li>
 
+                @can('view_company_settings')
+                <li>
+                    <a href="{{route('company_settings.show',1)}}">
+                        <i class="fa-regular fa-building"></i>
+                        <span>Company Settings</span>
+                    </a>
+                </li>
+                @endcan
+
                 @can('view_employee')
                 <li>
                     <a href="{{route('employees.index')}}">

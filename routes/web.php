@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
@@ -34,4 +35,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('permissions', PermissionController::class);
 
     Route::get("/profile", [ProfileController::class, 'profile'])->name('profile.profile');
+
+    Route::resource("/company_settings", CompanySettingController::class)->only(['show', 'edit', 'update']);
 });
