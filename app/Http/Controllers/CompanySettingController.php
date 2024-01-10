@@ -22,7 +22,7 @@ class CompanySettingController extends Controller
 
     public function edit($id)
     {
-        if (!User::find(auth()->id())->can('edit_company_settings')) {
+        if (!User::find(auth()->id())->can('edit_company_setting')) {
             return abort(401);
         }
 
@@ -33,7 +33,7 @@ class CompanySettingController extends Controller
 
     public function update($id, UpdateCompanySetting $request)
     {
-        if (!User::find(auth()->id())->can('edit_company_settings')) {
+        if (!User::find(auth()->id())->can('edit_company_setting')) {
             return abort(401);
         }
 

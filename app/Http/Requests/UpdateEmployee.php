@@ -22,18 +22,20 @@ class UpdateEmployee extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('employee');
         return [
-            "employee_id" => ["required", Rule::unique("users", "employee_id")->ignore($this->employee)],
+            "employee_id" => 'required|unique:users,employee_id,' . $id,
             "name" => ["required", "min:3"],
-            "phone" => ["required", Rule::unique("users", "phone")->ignore($this->employee)],
-            "email" => ["required", "email", Rule::unique("users", "email")->ignore($this->employee)],
-            "nrc_number" => ["required", Rule::unique("users", "nrc_number")->ignore($this->employee)],
+            "phone" => 'required|unique:users,phone,' . $id,
+            "email" => 'required|unique:users,email,' . $id,
+            "nrc_number" => 'required|unique:users,nrc_number,' . $id,
             "gender" => ["required"],
             "birthday" => ["required"],
             "address" => ["required"],
             "department_id" => ["required", Rule::exists("departments", "id")],
             "date_of_join" => ["required"],
             "is_present" => ["required"],
+            "pin_code" => 'required|min:6|max:6|unique:users,pin_code,' . $id,
         ];
     }
 }

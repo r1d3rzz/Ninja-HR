@@ -35,6 +35,7 @@ class StoreEmployee extends FormRequest
             "date_of_join" => ["required"],
             "is_present" => ["required"],
             "password" => ["required", "min:8"],
+            "pin_code" => 'required|min:6|max:6',
         ];
     }
 }

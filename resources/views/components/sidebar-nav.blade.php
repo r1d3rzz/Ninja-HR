@@ -8,16 +8,20 @@
         </div>
 
         <div class="sidebar-header">
+            @if (auth()->user()->profile)
             <div class="user-pic">
                 <img class="img-responsive sidebar-profile_img" src="{{asset('storage/'.auth()->user()->profile)}}"
                     alt="{{auth()->user()->name}}">
             </div>
+            @endif
             <div class="user-info">
                 <span class="user-name">
                     <strong>{{auth()->user()->name}}</strong>
                 </span>
                 <span class="user-role">{{auth()->user()->department->title}}</span>
-                <span class="user-role">{{auth()->user()->employee_id}}</span>
+                @foreach (auth()->user()->roles as $role)
+                <span class="user-role">{{$role->name}}</span>
+                @endforeach
                 {{-- <span class="user-status">
                     <i class="fa fa-circle"></i>
                     <span>Online</span>
@@ -69,7 +73,7 @@
                 </li>
                 @endcan
 
-                @can('view_employee')
+                @can('view_employees')
                 <li>
                     <a href="{{route('employees.index')}}">
                         <i class="fa-solid fa-users"></i>
@@ -78,7 +82,7 @@
                 </li>
                 @endcan
 
-                @can('view_department')
+                @can('view_departments')
                 <li>
                     <a href="{{route('departments.index')}}">
                         <i class="fa-solid fa-sitemap"></i>
@@ -87,7 +91,7 @@
                 </li>
                 @endcan
 
-                @can('view_role')
+                @can('view_roles')
                 <li>
                     <a href="{{route('roles.index')}}">
                         <i class="fa-solid fa-user-shield"></i>
@@ -96,11 +100,20 @@
                 </li>
                 @endcan
 
-                @can('view_permission')
+                @can('view_permissions')
                 <li>
                     <a href="{{route('permissions.index')}}">
                         <i class="fa-solid fa-shield"></i>
                         <span>Permission</span>
+                    </a>
+                </li>
+                @endcan
+
+                @can('view_attendances')
+                <li>
+                    <a href="{{route('attendances.index')}}">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        <span>Attendances</span>
                     </a>
                 </li>
                 @endcan

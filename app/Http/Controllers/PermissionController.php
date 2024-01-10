@@ -13,7 +13,7 @@ class PermissionController extends Controller
 {
     public function index()
     {
-        if (!User::find(auth()->id())->can('view_permission')) {
+        if (!User::find(auth()->id())->can('view_permissions')) {
             return abort(401);
         }
 

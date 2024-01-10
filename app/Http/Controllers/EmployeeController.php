@@ -16,7 +16,7 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        if (!User::find(auth()->id())->can('view_employee')) {
+        if (!User::find(auth()->id())->can('view_employees')) {
             return abort(401);
         }
 
@@ -25,7 +25,7 @@ class EmployeeController extends Controller
 
     public function ssd()
     {
-        if (!User::find(auth()->id())->can('view_employee')) {
+        if (!User::find(auth()->id())->can('view_employees')) {
             return abort(401);
         }
 
@@ -49,7 +49,7 @@ class EmployeeController extends Controller
                         $editIcon = '<a href="' . route("employees.edit", $each->id) . '" class="btn btn-sm btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>';
                     }
 
-                    if (User::find(auth()->id())->can('view_employee')) {
+                    if (User::find(auth()->id())->can('view_employees')) {
                         $infoIcon = '<a href="' . route("employees.show", $each->id) . '" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-circle-info"></i></a>';
                     }
 
@@ -91,7 +91,7 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
-        if (!User::find(auth()->id())->can('view_employee')) {
+        if (!User::find(auth()->id())->can('view_employees')) {
             return abort(401);
         }
 
@@ -131,6 +131,7 @@ class EmployeeController extends Controller
         $employee->date_of_join = $request->date_of_join;
         $employee->is_present = $request->is_present;
         $employee->password = $request->password;
+        $employee->pin_code = $request->pin_code;
 
         if ($request->file("profile")) {
             $employee->profile = $request->file('profile')->store('Employee_Profiles');
@@ -178,6 +179,8 @@ class EmployeeController extends Controller
         $employee->department_id = $request->department_id;
         $employee->date_of_join = $request->date_of_join;
         $employee->is_present = $request->is_present;
+        $employee->pin_code = $request->pin_code;
+
         $employee->password = $request->password ? $request->password : $employee->password;
         if ($request->file("profile")) {
             if ($employee->profile) {

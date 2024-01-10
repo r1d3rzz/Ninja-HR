@@ -16,7 +16,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        if (!User::find(auth()->id())->can('view_role')) {
+        if (!User::find(auth()->id())->can('view_roles')) {
             return abort(401);
         }
 
@@ -33,7 +33,7 @@ class RoleController extends Controller
                     foreach ($row->permissions as $permission) {
                         $output .= '<div class="badge bg-primary m-1">' . $permission->name . '</div>';
                     }
-                    return $output;
+                    return "<div class='d-flex flex-wrap'>" . $output . "</div>";
                 })
                 ->addColumn('actions', function ($row) {
                     $editIcon = '';

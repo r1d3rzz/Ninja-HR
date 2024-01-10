@@ -44,7 +44,7 @@
                                         </select>
                                     </div>
 
-
+                                    <x-form.input name="pin_code" />
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <x-form.input name="birthday" />

@@ -20,12 +20,15 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Datatable -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{-- CUSTOM CSS --}}
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap-pincode-input.css')}}">
 </head>
 
-<body>
+<body class="bg-dark">
     <div id="app">
 
         {{$slot}}
@@ -47,6 +50,19 @@
     <!-- Datatable -->
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+    {{-- Custom Js --}}
+    <script src="{{asset('js/bootstrap-pincode-input.js')}}"></script>
+
+    <script>
+        $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        });
+    </script>
 
     {{$script??false}}
 </body>

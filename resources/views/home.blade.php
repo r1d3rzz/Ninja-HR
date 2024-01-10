@@ -8,11 +8,13 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body row">
-                        <div class="col-12 col-lg-4">
+                        @if ($employee->profile)
+                        <div class="col-lg-4">
                             <img src="{{asset('storage/'.$employee->profile)}}" alt="{{$employee->name}}"
                                 class="img-thumbnail">
                         </div>
-                        <div class="col-12 mt-3 mt-lg-0 col-lg-8">
+                        @endif
+                        <div class="col mt-3 mt-lg-0">
                             <div class="card card-body bg-info-subtle">
                                 <h1 class="h4 mb-0">{{$employee->name}}</h1>
                                 <div class="roles mb-2">

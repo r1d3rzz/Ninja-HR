@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\RoleController;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes(["register" => false]);
+Auth::routes(["register" => !false]);
 
 Route::middleware('auth')->group(function () {
     Route::get("/", [PageController::class, 'home'])->name('home');
@@ -37,4 +38,15 @@ Route::middleware('auth')->group(function () {
     Route::get("/profile", [ProfileController::class, 'profile'])->name('profile.profile');
 
     Route::resource("/company_settings", CompanySettingController::class)->only(['show', 'edit', 'update']);
+});
+
+Route::controller(AttendanceController::class)->group(function () {
+    Route::get("/checkin-checkout", 'checkincheckoutHandler');
+    Route::post("/checkin", 'checkIncheckOut');
+    Route::get("/attendances", 'index')->name('attendances.index');
+    Route::get("/attendances/create", 'create')->name('attendances.create');
+    Route::post("/attendances", 'store');
+    Route::get("/attendances/{attendance}/edit", 'edit')->name('attendances.edit');
+    Route::put("/attendances/{attendance}", 'update')->name('attendances.update');
+    Route::delete("/attendances/{attendance}", 'destroy')->name('attendances.destroy');
 });

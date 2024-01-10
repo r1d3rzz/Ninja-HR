@@ -13,7 +13,7 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        if (!User::find(auth()->id())->can('view_department')) {
+        if (!User::find(auth()->id())->can('view_departments')) {
             return abort(401);
         }
 

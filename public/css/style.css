@@ -11,20 +11,15 @@
 }
 
 footer {
-    background-color: #fafafa;
     position: fixed;
     bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    z-index: 10;
+    width: 100vw;
 }
 
 footer a {
     text-decoration: none;
     color: inherit;
-    font-size: 1.2rem;
-    margin: 0.8% 2%;
+    font-size: 1.5rem;
 }
 
 .dtr-data {
