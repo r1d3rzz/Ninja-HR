@@ -10,7 +10,7 @@
                     <div>
                         <h1 class="h4">QR Code</h1>
                         <img
-                            src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(250)->generate('Make me into an QrCode!')) !!} ">
+                            src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(250)->generate($hash_value)) !!} ">
                         <p>Please Scan QR Code for Check In or Checkout</p>
                     </div>
                     <hr>

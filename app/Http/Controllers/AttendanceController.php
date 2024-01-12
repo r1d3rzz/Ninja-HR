@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateAttendance;
 use App\Models\Attendance;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class AttendanceController extends Controller
@@ -50,11 +51,19 @@ class AttendanceController extends Controller
 
     public function create()
     {
+        if (!User::find(auth()->id())->can('create_attendance')) {
+            return abort(401);
+        }
+
         return view('attendance.create', ['employees' => User::orderBy('employee_id', 'desc')->get()]);
     }
 
     public function store(StoreAttendance $request)
     {
+        if (!User::find(auth()->id())->can('create_attendance')) {
+            return abort(401);
+        }
+
         if (Attendance::where('user_id', $request->user_id)->where('date', $request->date)->exists()) {
             return back()->withErrors(["fail" => "Already defined!"])->withInput();
         }
@@ -71,6 +80,10 @@ class AttendanceController extends Controller
 
     public function edit($id)
     {
+        if (!User::find(auth()->id())->can('edit_attendance')) {
+            return abort(401);
+        }
+
         $attendance = Attendance::findOrFail($id);
 
         return view('attendance.edit', [
@@ -81,6 +94,10 @@ class AttendanceController extends Controller
 
     public function update($id, UpdateAttendance $request)
     {
+        if (!User::find(auth()->id())->can('edit_attendance')) {
+            return abort(401);
+        }
+
         $attendance = Attendance::findOrFail($id);
 
         if (Attendance::where('user_id', $request->user_id)->where('date', $request->date)->where('id', '!=', $attendance->id)->exists()) {
@@ -98,7 +115,9 @@ class AttendanceController extends Controller
 
     public function checkincheckoutHandler()
     {
-        return view('attendance.checkin-checkout');
+        return view('attendance.checkin-checkout', [
+            'hash_value' => Hash::make(date('Y-m-d')),
+        ]);
     }
 
     public function checkIncheckOut(Request $request)
@@ -146,6 +165,10 @@ class AttendanceController extends Controller
 
     public function destroy($id)
     {
+        if (!User::find(auth()->id())->can('delete_attendance')) {
+            return abort(401);
+        }
+
         $attendance = Attendance::findOrFail($id);
         $attendance->delete();
         return "success";

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AttendanceScanController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\RoleController;
@@ -38,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::get("/profile", [ProfileController::class, 'profile'])->name('profile.profile');
 
     Route::resource("/company_settings", CompanySettingController::class)->only(['show', 'edit', 'update']);
+
+    Route::resource('/attendance_scan', AttendanceScanController::class)->only(['index', 'store']);
 });
 
 Route::controller(AttendanceController::class)->group(function () {

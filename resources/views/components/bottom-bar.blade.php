@@ -1,20 +1,20 @@
 <div class="container-fluid">
     <footer class="p-2 row justify-content-center bg-white">
-        <div class="col-lg-6 col-12 d-flex justify-content-md-around justify-content-between">
+        <div class="col-lg-6 col-12 d-flex justify-content-md-around justify-content-between text-center">
             <a href="{{route('home')}}" class="footer-link">
-                <i class="fa-solid fa-home"></i>
+                <i class="fa-solid fa-home fs-5"></i><br>Home
             </a>
 
-            <a href="{{route('employees.index')}} " class="footer-link">
-                <i class="fa-solid fa-users"></i>
+            <a href="{{route('attendance_scan.index')}} " class="footer-link">
+                <i class="fa-solid fa-user-clock fs-5"></i><br>Attendance
             </a>
 
             <a href="{{route('departments.index')}}" class="footer-link">
-                <i class="fa-solid fa-sitemap"></i>
+                <i class="fa-solid fa-sitemap fs-5"></i><br>Department
             </a>
 
             <a href="{{route('profile.profile')}}" class="footer-link">
-                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-user fs-5"></i><br>Profile
             </a>
         </div>
     </footer>
