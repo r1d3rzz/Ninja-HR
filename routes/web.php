@@ -7,6 +7,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\MyAttendanceController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -52,4 +53,11 @@ Route::controller(AttendanceController::class)->group(function () {
     Route::get("/attendances/{attendance}/edit", 'edit')->name('attendances.edit');
     Route::put("/attendances/{attendance}", 'update')->name('attendances.update');
     Route::delete("/attendances/{attendance}", 'destroy')->name('attendances.destroy');
+    Route::get("/attendances_overview", 'attendances_overview')->name('attendances.overview');
+    Route::get("/attendances_overview_table", 'attendances_overview_table')->name('attendances.overview_table');
+});
+
+Route::controller(MyAttendanceController::class)->group(function () {
+    Route::get("/my-attendances_overview_table/all", 'index')->name('my-attendances_overview_table.index');
+    Route::get("/my-attendances_overview_table", 'my_attendances_overview_table');
 });

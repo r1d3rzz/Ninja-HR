@@ -118,6 +118,15 @@
                 </li>
                 @endcan
 
+                @can('view_attendances')
+                <li>
+                    <a href="{{route('attendances.overview')}}">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        <span>Attendances (Overview)</span>
+                    </a>
+                </li>
+                @endcan
+
             </ul>
         </div>
         <!-- sidebar-menu  -->

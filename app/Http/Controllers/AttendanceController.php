@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAttendance;
 use App\Http\Requests\UpdateAttendance;
 use App\Models\Attendance;
+use App\Models\CompanySetting;
 use App\Models\User;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
@@ -172,5 +175,35 @@ class AttendanceController extends Controller
         $attendance = Attendance::findOrFail($id);
         $attendance->delete();
         return "success";
+    }
+
+    public function attendances_overview()
+    {
+        if (!User::find(auth()->id())->can('view_attendances')) {
+            return abort(401);
+        }
+
+        return view('attendance.overview');
+    }
+
+    public function attendances_overview_table(Request $request)
+    {
+        if (!User::find(auth()->id())->can('view_attendances')) {
+            return abort(401);
+        }
+
+        $month = $request->month;
+        $year = $request->year;
+        $employee_name = $request->employee_name;
+
+        $startOfMonth = $year . '-' . $month . '-01';
+        $endofMonth = Carbon::parse($startOfMonth)->endOfMonth()->format('Y-m-d');
+
+        return view('components.attendances_overview_table', [
+            'periods' => CarbonPeriod::create($startOfMonth, $endofMonth),
+            'employees' => User::orderBy('employee_id')->where('name', 'like', '%' . $employee_name . '%')->get(),
+            'attendances' => Attendance::whereMonth('date', $month)->whereYear('date', $year)->get(),
+            'company_setting' => CompanySetting::findOrFail(1),
+        ])->render();
     }
 }
