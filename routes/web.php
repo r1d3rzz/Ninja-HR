@@ -10,6 +10,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MyAttendanceController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SalaryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get("/employee/database/ssd", [EmployeeController::class, "ssd"])->name("employees.dbtable");
 
     Route::resource('departments', DepartmentController::class);
+
+    Route::resource('salaries', SalaryController::class);
 
     Route::resource('roles', RoleController::class);
 
