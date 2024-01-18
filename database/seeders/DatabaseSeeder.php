@@ -47,14 +47,16 @@ class DatabaseSeeder extends Seeder
 
         $users = User::all();
         foreach ($users as $user) {
-            $periods = CarbonPeriod::create('2023-01-01', '2024-1-31');
+            $periods = CarbonPeriod::create('2024-01-01', '2024-1-31');
             foreach ($periods as $period) {
-                $attendance = new Attendance();
-                $attendance->user_id = $user->id;
-                $attendance->date = $period->format('Y-m-d');
-                $attendance->checkin_time = Carbon::parse($period->format('Y-m-d') . ' ' . '09:00:00')->subMinute(rand(1, 55));
-                $attendance->checkout_time = Carbon::parse($period->format('Y-m-d') . ' ' . '18:00:00')->addMinute(rand(1, 55));
-                $attendance->save();
+                if ($period->format('D') != 'Sat' && $period->format('D') != 'Sun') {
+                    $attendance = new Attendance();
+                    $attendance->user_id = $user->id;
+                    $attendance->date = $period->format('Y-m-d');
+                    $attendance->checkin_time = Carbon::parse($period->format('Y-m-d') . ' ' . '09:00:00')->subMinute(rand(10, 55));
+                    $attendance->checkout_time = Carbon::parse($period->format('Y-m-d') . ' ' . '18:00:00')->addMinute(rand(5, 55));
+                    $attendance->save();
+                }
             }
         }
     }

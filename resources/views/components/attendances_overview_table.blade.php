@@ -4,7 +4,7 @@
             <tr>
                 <th>Employee</th>
                 @foreach ($periods as $period)
-                <th>{{$period->format('d')}}</th>
+                <th @if($period->format('D') == 'Sat' || $period->format('D') == 'Sun') class="text-bg-info" @endif>{{$period->format('d')}}</th>
                 @endforeach
             </tr>
         </thead>
@@ -23,26 +23,26 @@
                 $checkout_icon = '';
                 $attendance = collect($attendances)->where('user_id',$employee->id)->where('date',$period->format('Y-m-d'))->first();
 
-                if(!$attendance) return false;
+                if($attendance){
+                    if($attendance->checkin_time <= $office_start_time){
+                        $checkin_icon="<i class='fa-solid fa-check-circle fs-5 text-success'></i>" ;
+                    }else if($attendance->checkin_time > $office_start_time && $attendance->checkin_time <= $break_start_time){
+                        $checkin_icon="<i class='fa-solid fa-check-circle fs-5 text-warning'></i>" ;
+                    }else{
+                        $checkin_icon="<i class='fa-solid fa-times-circle fs-5 text-danger'></i>" ;
+                    }
 
-                if($attendance->checkin_time <= $office_start_time){
-                    $checkin_icon="<i class='fa-solid fa-check-circle text-success'></i>" ;
-                }else if($attendance->checkin_time > $office_start_time && $attendance->checkin_time <= $break_start_time){
-                    $checkin_icon="<i class='fa-solid fa-check-circle text-warning'></i>" ;
-                }else{
-                    $checkin_icon="<i class='fa-solid fa-times-circle text-danger'></i>" ;
-                }
-
-                if($attendance->checkout_time >= $office_end_time){
-                    $checkout_icon="<i class='fa-solid fa-check-circle text-success'></i>" ;
-                }else if($attendance->checkout_time <= $office_end_time && $attendance->checkout_time > $break_end_time){
-                    $checkout_icon="<i class='fa-solid fa-check-circle text-warning'></i>" ;
-                }else{
-                    $checkout_icon="<i class='fa-solid fa-times-circle text-danger'></i>" ;
-                }
+                    if($attendance->checkout_time >= $office_end_time){
+                        $checkout_icon="<i class='fa-solid fa-check-circle fs-5 text-success'></i>" ;
+                    }else if($attendance->checkout_time <= $office_end_time && $attendance->checkout_time > $break_end_time){
+                        $checkout_icon="<i class='fa-solid fa-check-circle fs-5 text-warning'></i>" ;
+                    }else{
+                        $checkout_icon="<i class='fa-solid fa-times-circle fs-5 text-danger'></i>" ;
+                    }
+                };
                 @endphp
 
-                <td>
+                <td @if($period->format('D') == 'Sat' || $period->format('D') == 'Sun') class="text-bg-info" @endif>
                     {!!$checkin_icon!!}
                     {!!$checkout_icon!!}
                 </td>
