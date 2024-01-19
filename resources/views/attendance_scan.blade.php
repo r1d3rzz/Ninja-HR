@@ -45,7 +45,6 @@
                     <div class="mb-3">
                       <form>
                         <div class="row">
-
                             <div class="col-md-4 mb-2 mb-lg-0">
                                 <select id="month" class="form-select">
                                     <option value="" disabled selected class="text-center">-- Select Month --</option>
@@ -76,13 +75,14 @@
                             <div class="col-md-4">
                                 <button class="btn btn-primary float-end float-lg-start w-100" id="searchBtn">Search</button>
                             </div>
-                           </div>
+                        </div>
                       </form>
                     </div>
+                    <div class="fs-4 text-muted text-center text-lg-start mb-2">Payroll Records</div>
+                    <div class="payroll_table"></div>
+                    <div class="fs-4 text-muted text-center text-lg-start mb-2">Attendance Records</div>
                     <div class="attendances_overview_table"></div>
-                </div>
-                <div class="card p-0">
-                    <div class="card-body">
+                    <div class="mt-3">
                         <table class="table dbtable-align table-bordered display nowrap" id="attendances" width="100%">
                             <thead>
                                 <tr class="text-center">
@@ -166,7 +166,6 @@
                 {
                     var month = $('#month').val();
                     var year = $('#year').val();
-                    var employee_name = $('#employee_name').val();
 
                     $.ajax({
                         url: `/my-attendances_overview_table?month=${month}&year=${year}`,
@@ -179,13 +178,28 @@
                     table.ajax.url(`/my-attendances_overview_table/all?month=${month}&year=${year}`).load();
                 }
 
+                function getPayrollTable()
+                {
+                    var month = $('#month').val();
+                    var year = $('#year').val();
+
+                    $.ajax({
+                        url: `/my-payroll_table?month=${month}&year=${year}`,
+                        type: 'GET',
+                        success: function(res){
+                            $('.payroll_table').html(res);
+                        },
+                    });
+                }
+
                 $('#searchBtn').on('click',function(e){
                     e.preventDefault();
                     getAttendancesOverviewTable();
+                    getPayrollTable()
                 });
 
                 getAttendancesOverviewTable();
-
+                getPayrollTable()
              });
         </script>
     </x-slot>

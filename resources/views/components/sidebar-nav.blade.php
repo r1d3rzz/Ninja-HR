@@ -136,6 +136,15 @@
                 </li>
                 @endcan
 
+                @can('view_payroll')
+                <li>
+                    <a href="{{route('payroll_table.index')}}">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <span>Payroll</span>
+                    </a>
+                </li>
+                @endcan
+
             </ul>
         </div>
         <!-- sidebar-menu  -->

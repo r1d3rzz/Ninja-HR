@@ -5,7 +5,7 @@
 
     <div class="container employeesTable-container p-2">
         <div class="row">
-            <div class="col mx-auto">
+            <div class="col mx-auto mb-5">
                 <div class="card p-0 mt-2">
                     <div class="card-body">
                         <div class="mb-4">

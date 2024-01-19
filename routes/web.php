@@ -1,18 +1,20 @@
 <?php
 
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\AttendanceScanController;
-use App\Http\Controllers\CompanySettingController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\MyAttendanceController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SalaryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\MyPayrollController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\MyAttendanceController;
+use App\Http\Controllers\AttendanceScanController;
+use App\Http\Controllers\CompanySettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,4 +65,13 @@ Route::controller(AttendanceController::class)->group(function () {
 Route::controller(MyAttendanceController::class)->group(function () {
     Route::get("/my-attendances_overview_table/all", 'index')->name('my-attendances_overview_table.index');
     Route::get("/my-attendances_overview_table", 'my_attendances_overview_table');
+});
+
+Route::controller(MyPayrollController::class)->group(function () {
+    Route::get("/my-payroll_table", 'my_payroll_table');
+});
+
+Route::controller(PayrollController::class)->group(function () {
+    Route::get("/payroll", 'index')->name('payroll_table.index');
+    Route::get("/payroll_table", 'payroll_table');
 });

@@ -29,7 +29,7 @@
                 if($attendance){
                     if($attendance->checkin_time <= $office_start_time){
                         $checkin_icon="<i class='fa-solid fa-check-circle fs-5 text-success'></i>" ;
-                    }else if($attendance->checkin_time > $office_start_time && $attendance->checkin_time <= $break_start_time){
+                    }else if($attendance->checkin_time > $office_start_time && $attendance->checkin_time < $break_start_time){
                         $checkin_icon="<i class='fa-solid fa-check-circle fs-5 text-warning'></i>" ;
                     }else{
                         $checkin_icon="<i class='fa-solid fa-times-circle fs-5 text-danger'></i>" ;

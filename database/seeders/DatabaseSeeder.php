@@ -53,8 +53,8 @@ class DatabaseSeeder extends Seeder
                     $attendance = new Attendance();
                     $attendance->user_id = $user->id;
                     $attendance->date = $period->format('Y-m-d');
-                    $attendance->checkin_time = Carbon::parse($period->format('Y-m-d') . ' ' . '09:00:00')->subMinute(rand(10, 55));
-                    $attendance->checkout_time = Carbon::parse($period->format('Y-m-d') . ' ' . '18:00:00')->addMinute(rand(5, 55));
+                    $attendance->checkin_time = Carbon::parse($period->format('Y-m-d') . ' ' . '09:00:00');
+                    $attendance->checkout_time = Carbon::parse($period->format('Y-m-d') . ' ' . '18:00:00');
                     $attendance->save();
                 }
             }
