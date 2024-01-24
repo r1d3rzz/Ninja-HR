@@ -9,8 +9,8 @@
                 <i class="fa-solid fa-user-clock fs-5"></i><br>Attendance
             </a>
 
-            <a href="{{route('departments.index')}}" class="footer-link">
-                <i class="fa-solid fa-sitemap fs-5"></i><br>Department
+            <a href="{{route('my-projects.index')}}" class="footer-link">
+                <i class="fa-solid fa-toolbox fs-5"></i><br>Project
             </a>
 
             <a href="{{route('profile.profile')}}" class="footer-link">

@@ -68,7 +68,7 @@ class EmployeeController extends Controller
                 })
                 ->editColumn('profile', function ($each) {
                     if ($each->profile) {
-                        return "<img src='/storage/$each->profile' class='profile_img rounded-2'/><div class='mt=2 text-center'>$each->name</div>";
+                        return "<div class='text-center'><img src='/storage/$each->profile' class='profile_img rounded-2'/><div class='mt=2 text-center'>$each->name</div></div>";
                     } else {
                         return "$each->name";
                     }

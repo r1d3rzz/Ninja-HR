@@ -33,22 +33,22 @@ class ProjectController extends Controller
                 ->addColumn('leaders', function ($row) {
                     $leaders = '';
                     if (!$row->leaders) {
-                        $leaders = "-";
+                        $leaders = "<img class='border border-1 rounded-5' src='/image/temp_profile_img.jpg' width='50' />";
                     }
                     foreach ($row->leaders as $leader) {
-                        $leaders .= "<div class='badge bg-primary m-1'>$leader->name</div>";
+                        $leaders .= "<img title='" . $leader->name . "' class='border border-1 rounded-5' src=" . asset('storage') . '/' . $leader->profile . " width='40' height='40' />";
                     }
-                    return "<div class='d-flex flex-wrap'>$leaders</div>";
+                    return "<div class='d-flex flex-wrap justify-content-center'>$leaders</div>";
                 })
                 ->addColumn('members', function ($row) {
                     $members = '';
                     if (!$row->members) {
-                        $members = "-";
+                        $members = "<img class='border border-1 rounded-5' src='/image/temp_profile_img.jpg' width='50' />";
                     }
                     foreach ($row->members as $member) {
-                        $members .= "<div class='badge bg-secondary m-1'>$member->name</div>";
+                        $members .= "<img title='" . $member->name . "' class='border border-1 rounded-5 m-1' src=" . asset('storage') . '/' . $member->profile . " width='40' height='40' />";
                     }
-                    return "<div class='d-flex flex-wrap'>$members</div>";
+                    return "<div class='d-flex flex-wrap justify-content-center'>$members</div>";
                 })
                 ->editColumn('description', function ($row) {
                     return Str::limit($row->description, 100, '...');
@@ -94,6 +94,10 @@ class ProjectController extends Controller
 
     public function show($id)
     {
+        if (!auth()->user()->can('view_projects') && !auth()->user()->can('view_my_projects')) {
+            return abort(401);
+        }
+
         return view('project.show', [
             'project' => Project::findOrFail($id),
         ]);
@@ -149,20 +153,8 @@ class ProjectController extends Controller
         $project->files = $filesNames;
         $project->save();
 
-        foreach (($request->leaders ?? []) as $leader) {
-            ProjectLeader::firstOrCreate([
-                'project_id' => $project->id,
-                'user_id' => $leader,
-            ]);
-        }
-
-        foreach (($request->members ?? []) as $member) {
-            ProjectMember::firstOrCreate([
-                'project_id' => $project->id,
-                'user_id' => $member,
-            ]);
-        }
-
+        $project->leaders()->sync($request->leaders);
+        $project->members()->sync($request->members);
 
         return redirect(route('projects.index'))->with('created', 'New Project is created Successful');
     }
@@ -221,19 +213,8 @@ class ProjectController extends Controller
         $project->files = $filesNames;
         $project->update();
 
-        foreach (($request->leaders ?? []) as $leader) {
-            ProjectLeader::firstOrCreate([
-                'project_id' => $project->id,
-                'user_id' => $leader,
-            ]);
-        }
-
-        foreach (($request->members ?? []) as $member) {
-            ProjectMember::firstOrCreate([
-                'project_id' => $project->id,
-                'user_id' => $member,
-            ]);
-        }
+        $project->leaders()->sync($request->leaders);
+        $project->members()->sync($request->members);
 
         return redirect(route('projects.index'))->with('updated', 'Project is updated Successful');
     }

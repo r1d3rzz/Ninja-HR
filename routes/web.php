@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MyPayrollController;
+use App\Http\Controllers\MyProjectController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PermissionController;
@@ -73,6 +74,8 @@ Route::controller(MyAttendanceController::class)->group(function () {
 Route::controller(MyPayrollController::class)->group(function () {
     Route::get("/my-payroll_table", 'my_payroll_table');
 });
+
+Route::resource('my-projects', MyProjectController::class)->only(['index', 'show']);
 
 Route::controller(PayrollController::class)->group(function () {
     Route::get("/payroll", 'index')->name('payroll_table.index');
