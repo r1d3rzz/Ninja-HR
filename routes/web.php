@@ -17,6 +17,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\MyAttendanceController;
 use App\Http\Controllers\AttendanceScanController;
 use App\Http\Controllers\CompanySettingController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,9 @@ Route::controller(MyPayrollController::class)->group(function () {
 });
 
 Route::resource('my-projects', MyProjectController::class)->only(['index', 'show']);
+
+Route::resource('tasks', TaskController::class);
+Route::get('/tasks-data', [TaskController::class, 'tasksData']);
 
 Route::controller(PayrollController::class)->group(function () {
     Route::get("/payroll", 'index')->name('payroll_table.index');

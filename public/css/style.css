@@ -4,6 +4,10 @@
     z-index: 10;
 }
 
+.select2-container {
+    z-index: 1067 !important;
+}
+
 .sidebar-profile_img {
     width: 60px !important;
     height: 60px !important;

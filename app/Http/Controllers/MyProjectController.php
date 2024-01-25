@@ -99,7 +99,7 @@ class MyProjectController extends Controller
             })->findOrFail($id);
 
         return view('project.my-projects-show', [
-            'project' => $project
+            'project' => $project,
         ]);
     }
 }
