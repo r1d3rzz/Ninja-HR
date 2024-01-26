@@ -226,6 +226,116 @@
                     e.preventDefault();
                     storeTask('complete','Complete');
                 });
+
+                $(document).on('click','#task_edit',function(e){
+                    e.preventDefault();
+                    var taskData = JSON.parse(atob($(this).data('task')));
+                    var membersData = JSON.parse(atob($(this).data('members')));
+
+                    var task_members_options = '';
+
+                    leaders.forEach(function(leader){
+                        task_members_options += `<option ${membersData.includes(leader.id) ? 'selected' : ''} value="${leader.id}">${leader.name}</option>`;
+                    });
+
+                    members.forEach((member)=>{
+                        task_members_options += `<option ${membersData.includes(member.id) ? 'selected' : ''} value="${member.id}">${member.name}</option>`;
+                    });
+
+                    Swal.fire({
+                        title: `Edit Task`,
+                        showCancelButton: true,
+                        html: `
+                            <form id="editFormData">
+                                <div class="text-start">
+                                    <input type="hidden" name="project_id" value="${taskData.id}"/>
+                                    <input type="hidden" name="status" value="${taskData.status}"/>
+                                    <x-form.input name="title" value="${taskData.title}"/>
+                                    <x-form.textarea name="description" value="${taskData.description}"/>
+                                    <x-form.input name="start_date" class="task_date" value="${taskData.start_date}"/>
+                                    <x-form.input name="deadline" class="task_date" value="${taskData.deadline}"/>
+
+                                    <div class="mb-4">
+                                        <div><label class="fs-6 text-muted">Select Members</label></div>
+                                        <select class="select-ninja form-select" name="members[]"
+                                            multiple="multiple">
+                                            ${task_members_options}
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <div><label class="fs-6 text-muted">Select Priority</label></div>
+                                        <select name="priority" class="form-select select-ninja">
+                                            <option ${taskData.priority == 'low' ? 'selected' : ''} value="low">Low</option>
+                                            <option ${taskData.priority == 'middle' ? 'selected' : ''} value="middle">Medium</option>
+                                            <option ${taskData.priority == 'high' ? 'selected' : ''} value="high">High</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        `,
+                        confirmButtonText: "Save"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                                var editFormData = $('#editFormData').serialize();
+                                $.ajax({
+                                    url: "/tasks/"+taskData.id,
+                                    type: "PUT",
+                                    data: editFormData,
+                                    success: function(res){
+                                        getTasksData();
+                                    },
+                                });
+                                Swal.fire({
+                                title: "Saved",
+                                text: "Your task has been saved.",
+                                icon: "success"
+                            });
+                        }
+                    });
+
+                    $('.task_date').daterangepicker({
+                        "singleDatePicker": true,
+                        "showDropdowns": true,
+                        "opens": "center",
+                        "autoApply": true,
+                        "drops": "auto",
+                        "locale": {
+                            "format": "YYYY-MM-DD",
+                        }
+                    });
+
+                    $('.select-ninja').select2();
+                });
+
+                $(document).on('click','#task_delete',function(e){
+                   e.preventDefault();
+                   var id = $(this).data('id');
+
+                   Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!"
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                method:"DELETE",
+                                url: `/tasks/${id}`,
+                            }).done(function(res){
+                                getTasksData();
+                            });
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your task has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    });
+                });
             });
         </script>
     </x-slot>

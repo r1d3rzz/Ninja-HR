@@ -8,8 +8,13 @@
             <div class="card card-body py-2 px-3 mb-1">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-6 fw-bold">{{$task->title}}</div>
-                    <div class="fs-5">
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    <div class="fs-6 mb-2">
+                        <a href="#" id="task_edit" class="me-2" data-task="{{base64_encode(json_encode($task))}}" data-members="{{base64_encode(json_encode(collect($task->members)->pluck('id')->toArray()))}}">
+                            <i class="fa-solid fa-edit text-warning"></i>
+                        </a>
+                        <a href="#" id="task_delete" data-id="{{$task->id}}">
+                            <i class="fa-solid fa-trash-alt text-danger"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-1">
@@ -61,8 +66,13 @@
             <div class="card card-body py-2 px-3 mb-1">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-6 fw-bold">{{$task->title}}</div>
-                    <div class="fs-5">
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    <div class="fs-6 mb-2">
+                        <a href="#" id="task_edit" class="me-2" data-task="{{base64_encode(json_encode($task))}}" data-members="{{base64_encode(json_encode(collect($task->members)->pluck('id')->toArray()))}}">
+                            <i class="fa-solid fa-edit text-warning"></i>
+                        </a>
+                        <a href="#" id="task_delete" data-id="{{$task->id}}">
+                            <i class="fa-solid fa-trash-alt text-danger"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-1">
@@ -114,8 +124,13 @@
             <div class="card card-body py-2 px-3 mb-1">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-6 fw-bold">{{$task->title}}</div>
-                    <div class="fs-5">
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    <div class="fs-6 mb-2">
+                        <a href="#" id="task_edit" class="me-2" data-task="{{base64_encode(json_encode($task))}}" data-members="{{base64_encode(json_encode(collect($task->members)->pluck('id')->toArray()))}}">
+                            <i class="fa-solid fa-edit text-warning"></i>
+                        </a>
+                        <a href="#" id="task_delete" data-id="{{$task->id}}">
+                            <i class="fa-solid fa-trash-alt text-danger"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-1">

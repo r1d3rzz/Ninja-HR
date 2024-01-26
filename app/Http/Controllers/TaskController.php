@@ -13,7 +13,7 @@ class TaskController extends Controller
         $task = new Task();
         $task->project_id = $request->project_id;
         $task->title = $request->title;
-        $task->description = $request->description;
+        $task->description = $request->description ?? "";
         $task->start_date = $request->start_date;
         $task->deadline = $request->deadline;
         $task->priority = $request->priority;
@@ -31,5 +31,34 @@ class TaskController extends Controller
         return view('components.tasks_data', [
             'project' => $project,
         ])->render();
+    }
+
+    public function update($id, Request $request)
+    {
+        $task = Task::findOrFail($id);
+
+        $task->title = $request->title;
+        $task->description = $request->description ?? "";
+        $task->start_date = $request->start_date;
+        $task->deadline = $request->deadline;
+        $task->priority = $request->priority;
+        $task->update();
+
+        $task->members()->sync($request->members);
+
+        return "success";
+    }
+
+    public function destroy($id)
+    {
+        $task = Task::findOrFail($id);
+
+        if ($task->members) {
+            $task->members()->detach();
+        }
+
+        $task->delete();
+
+        return "success";
     }
 }
