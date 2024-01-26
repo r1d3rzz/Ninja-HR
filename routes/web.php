@@ -80,6 +80,7 @@ Route::resource('my-projects', MyProjectController::class)->only(['index', 'show
 
 Route::resource('tasks', TaskController::class);
 Route::get('/tasks-data', [TaskController::class, 'tasksData']);
+Route::get('/tasks-draggable', [TaskController::class, 'draggable']);
 
 Route::controller(PayrollController::class)->group(function () {
     Route::get("/payroll", 'index')->name('payroll_table.index');

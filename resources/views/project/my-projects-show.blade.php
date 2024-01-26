@@ -3,6 +3,16 @@
         Projects | Detail
     </x-slot>
 
+    <x-slot name="style">
+        <style>
+            .sortable-ghost{
+                background-color: rgba(186, 164, 164, 0.585);
+                border: 3px dotted black;
+                opacity: 0.4;
+            }
+        </style>
+    </x-slot>
+
     <div class="container-fluid p-2 px-lg-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -115,6 +125,7 @@
     </div>
 
     <x-slot name="script">
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
         <script>
             $(document).ready(function(){
                 var leaders = @json($project->leaders);
@@ -131,7 +142,78 @@
                         type: "GET",
                         success: function(res){
                             $('#tasks-data').html(res);
+                            sortableTask();
                         },
+                    });
+                }
+
+                function sortableTask(){
+                    var pandingTasks = document.getElementById('pandingTasks');
+                    var inProgressTasks = document.getElementById('inProgressTasks');
+                    var completeTasks = document.getElementById('completeTasks');
+
+                    Sortable.create(pandingTasks,{
+                        group: "tasksBoard",
+                        animation: 200,
+                        ghostClass: "sortable-ghost",
+                        store: {
+                            set:function(sortable){
+                                var order = sortable.toArray();
+                                localStorage.setItem("pandingTasks",order.join(','));
+                            }
+                        },
+                        onSort: function(e){
+                            setTimeout(() => {
+                                var pandingTasks = localStorage.getItem("pandingTasks");
+
+                                $.ajax({
+                                    url: `/tasks-draggable?project_id=${project_id}&pandingTasks=${pandingTasks}`,
+                                    type: "GET",
+                                });
+                            }, 1000);
+                        }
+                    });
+
+                    Sortable.create(inProgressTasks,{
+                        group: "tasksBoard",
+                        animation: 200,
+                        store: {
+                            set:function(sortable){
+                                var order = sortable.toArray();
+                                localStorage.setItem("inProgressTasks",order.join(','));
+                            }
+                        },
+                        onSort: function(e){
+                            setTimeout(() => {
+                                var inProgressTasks = localStorage.getItem("inProgressTasks");
+
+                                $.ajax({
+                                    url: `/tasks-draggable?project_id=${project_id}&inProgressTasks=${inProgressTasks}`,
+                                    type: "GET",
+                                });
+                            }, 1000);
+                        }
+                    });
+
+                    Sortable.create(completeTasks,{
+                        group: "tasksBoard",
+                        animation: 200,
+                        store: {
+                            set:function(sortable){
+                                var order = sortable.toArray();
+                                localStorage.setItem("completeTasks",order.join(','));
+                            }
+                        },
+                        onSort: function(e){
+                            setTimeout(() => {
+                                var completeTasks = localStorage.getItem("completeTasks");
+
+                                $.ajax({
+                                    url: `/tasks-draggable?project_id=${project_id}&completeTasks=${completeTasks}`,
+                                    type: "GET",
+                                });
+                            }, 1000);
+                        }
                     });
                 }
 
